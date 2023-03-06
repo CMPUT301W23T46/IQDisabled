@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#342B49"
-    >
-
+    android:background="#342B49">
 
     <TextView
-        android:id="@+id/sign_in_text"
+        android:id="@+id/sign_up_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -18,7 +14,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="35dp"
         android:fontFamily="sans-serif"
-        android:text="Sign in"
+        android:text="Sign up"
         android:textColor="@color/white"
         android:textSize="50dp"
         android:textStyle="bold" />
@@ -29,49 +25,52 @@
         android:orientation="vertical"
         android:id="@+id/input_layout"
         android:layout_marginTop="100dp"
-        android:layout_below="@id/sign_in_text"
+        android:layout_below="@id/sign_up_text"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:hint="Username"
+        android:textSize="20dp"
+        android:textColorHint="@color/white"
+        android:id="@+id/edit_user_name"
+        android:backgroundTint="@color/white"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:id="@+id/edit_user_pass"
+        android:textColorHint="@color/white"
+        android:textSize="20dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/white"
+
+        />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:hint="Username"
+            android:hint="Phone number"
             android:textSize="20dp"
             android:textColorHint="@color/white"
-            android:id="@+id/edit_user_name"
+            android:id="@+id/edit_phone_number"
             android:backgroundTint="@color/white"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:id="@+id/edit_user_pass"
+            android:hint="Email"
+            android:id="@+id/edit_email"
             android:textColorHint="@color/white"
             android:textSize="20dp"
             android:backgroundTint="@color/white"
             android:textColor="@color/white"
-
             />
-
-        <CheckBox
-            android:theme="@style/Theme.AppCompat.DayNight"
-            android:id="@+id/remember_me_check_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Remember me" />
-        <CheckBox
-            android:theme="@style/Theme.AppCompat.DayNight"
-            android:id="@+id/geo_check_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Record your geolocation" />
-
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,13 +79,13 @@
         android:orientation="horizontal"
         android:layout_below="@id/input_layout">
         <Button
-            android:id="@+id/sign_in_button"
+            android:id="@+id/sign_up_button"
             android:theme="@style/Theme.AppCompat.DayNight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#77F1E8FF"
             android:fontFamily="sans-serif"
-            android:text="sign in"
+            android:text="sign up"
             android:textColor="@color/white"
             android:textSize="15dp"
             android:layout_marginLeft="15dp"
@@ -101,18 +100,13 @@
             android:backgroundTint="#77F1E8FF"
             android:fontFamily="sans-serif"
             android:text="Cancel"
-
             android:textColor="@color/white"
             android:textSize="15dp"
-            android:layout_marginLeft="190dp"
+            android:layout_marginLeft="185dp"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
             />
     </LinearLayout>
-
-
-
-
 
 
 </RelativeLayout>

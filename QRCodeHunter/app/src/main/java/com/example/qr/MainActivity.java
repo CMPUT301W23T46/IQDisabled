@@ -21,12 +21,17 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setContentView(R.layout.sign_in_page);
+                Button cancel = (Button) findViewById(R.id.cancel_button);
                 
             }
         });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setContentView(R.layout.register_page);
+                Button cancel = (Button) findViewById(R.id.cancel_button);
+
 
             }
         });
