@@ -30,32 +30,33 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:hint="Username"
-        android:textSize="20dp"
-        android:textColorHint="@color/white"
-        android:id="@+id/edit_user_name"
-        android:backgroundTint="@color/white"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:id="@+id/edit_user_pass"
-        android:textColorHint="@color/white"
-        android:textSize="20dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/white"
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:hint="Username"
+            android:textSize="20dp"
+            android:textColorHint="@color/white"
+            android:id="@+id/edit_user_name"
+            android:backgroundTint="@color/white"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:id="@+id/edit_user_pass"
+            android:textColorHint="@color/white"
+            android:textSize="20dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
 
-        />
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:hint="Phone number"
+            android:phoneNumber="true"
             android:textSize="20dp"
             android:textColorHint="@color/white"
             android:id="@+id/edit_phone_number"
