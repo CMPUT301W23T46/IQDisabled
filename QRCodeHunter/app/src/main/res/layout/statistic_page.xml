@@ -36,10 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-
-
-
                 <TextView
                     android:id="@+id/highest_scoring_qr_code"
                     android:layout_width="wrap_content"
@@ -54,78 +50,125 @@
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     />
-
-
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal">
-
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/icon" />
+                        android:orientation="vertical">
 
-
-                    <TextView
-                        android:id="@+id/highest_score_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="12345"
-                        android:textColor="@color/white"
-
-                        />
-                </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/icon"
+                            />
+                        <TextView
+                            android:id="@+id/highest_score_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="12345"
+                            android:textColor="@color/white"
+                            android:paddingLeft="35dp"
+                            />
+                    </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/lowest_scoring_qr_code"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lighest scoring QR code:"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="35dp"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            />
+            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lowest_scoring_qr_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lowest scoring QR code: "
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginBottom="35dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/total_number_qr_codes"
-            android:layout_width="wrap_content"
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/icon"/>
+                        <TextView
+                            android:id="@+id/lowest_score_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="12345"
+                            android:textColor="@color/white"
+                            android:paddingLeft="35dp"/>
+                    </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total Number of QR Codes:"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="35dp"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            />
+            >
+            <TextView
+                android:id="@+id/total_number_qr_codes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Number of QR Codes: "
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="35dp"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
 
-        <TextView
-            android:id="@+id/sum_of_scoring_of_qr_codes"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/qr_codes_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/total_number_qr_codes"
+                android:layout_toRightOf="@id/total_number_qr_codes"
+                android:text="12345"
+                android:textSize="20dp"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sum of Scores of QR Codes:"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="35dp"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            />
-
+            >
+            <TextView
+                android:id="@+id/sum_of_scoring_of_qr_codes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sum of Scores of QR Codes:"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="35dp"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/sum_of_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/sum_of_scoring_of_qr_codes"
+                android:layout_toRightOf="@id/sum_of_scoring_of_qr_codes"
+                android:text="12345"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -158,7 +201,7 @@
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/bottm_button_2"
+                android:id="@+id/bottom_button_2"
                 android:layout_width="55pt"
                 android:layout_height="25pt"
                 android:theme="@style/Theme.AppCompat.DayNight"
@@ -188,18 +231,11 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 
 
 </RelativeLayout>
