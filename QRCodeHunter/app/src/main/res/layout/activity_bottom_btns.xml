@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#342B49"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/bottom_button_1"
+        android:layout_width="55pt"
+        android:layout_height="25pt"
+        android:backgroundTint="#977DC5"
+        android:layout_marginRight="13dp"
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:text="Statistics"
+        android:textSize="15dp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/bottom_button_2"
+        android:layout_width="55pt"
+        android:layout_height="25pt"
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:backgroundTint="#977DC5"
+        android:text="Ranking"
+        android:textSize="15dp"
+        android:layout_marginRight="13dp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/bottom_button_3"
+        android:layout_width="55pt"
+        android:layout_height="25pt"
+
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:backgroundTint="#977DC5"
+        android:text="Remove"
+        android:textSize="15dp"
+        android:textColor="@color/white"/>
+
+
+
+
+</LinearLayout>
