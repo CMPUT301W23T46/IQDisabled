@@ -37,6 +37,8 @@ public class HomeActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this,AddCodeActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -86,7 +86,6 @@
             android:backgroundTint="#77F1E8FF"
             android:fontFamily="sans-serif"
             android:text="Cancel"
-
             android:textColor="@color/white"
             android:textSize="15dp"
             android:layout_marginLeft="190dp"
