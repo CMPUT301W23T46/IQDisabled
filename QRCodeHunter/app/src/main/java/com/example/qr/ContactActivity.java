@@ -52,8 +52,6 @@ public class ContactActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ContactActivity.this, AddActivity.class);
-                startActivity(intent);
             }
         });
     }

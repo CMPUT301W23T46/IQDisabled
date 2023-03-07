@@ -52,8 +52,6 @@ public class MapActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this, AddActivity.class);
-                startActivity(intent);
             }
         });
     }
