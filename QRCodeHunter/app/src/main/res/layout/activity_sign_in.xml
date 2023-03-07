@@ -56,21 +56,6 @@
 
             />
 
-        <CheckBox
-            android:theme="@style/Theme.AppCompat.DayNight"
-            android:id="@+id/remember_me_check_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Remember me" />
-        <CheckBox
-            android:theme="@style/Theme.AppCompat.DayNight"
-            android:id="@+id/geo_check_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Remember this device" />
-
 
     </LinearLayout>
     <LinearLayout
