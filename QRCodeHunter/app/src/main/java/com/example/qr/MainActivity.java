@@ -2,6 +2,7 @@ package com.example.qr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,16 +22,19 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.sign_in_page);
-                Button cancel = (Button) findViewById(R.id.cancel_button);
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+//                Button cancel = (Button) findViewById(R.id.cancel_button);
                 
             }
         });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.register_page);
-                Button cancel = (Button) findViewById(R.id.cancel_button);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+
+//                Button cancel = (Button) findViewById(R.id.cancel_button);
 
 
             }
