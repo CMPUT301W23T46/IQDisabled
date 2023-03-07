@@ -42,39 +42,19 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/textView"/>
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/sign_up_button"
         android:theme="@style/Theme.AppCompat.DayNight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#77F1E8FF"
         android:fontFamily="sans-serif"
-        android:text="sign in"
+        android:text="Sign Up"
         android:textColor="@color/white"
         android:textSize="15dp"
         android:layout_marginTop="30dp"
         android:layout_below="@id/app_image"
         android:layout_centerHorizontal="true"
         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Account? Click here to register"
-        android:textColor="@color/white"
-        android:layout_below="@id/sign_in_button"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif"
-        android:id="@+id/register_button"
-        android:textStyle="bold"
-        android:clickable="true"
-
-        />
-
-
-
-
-
-
 
 
 </RelativeLayout>

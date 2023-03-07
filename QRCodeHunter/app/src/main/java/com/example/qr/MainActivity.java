@@ -28,49 +28,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Button signInButton = (Button) findViewById(R.id.sign_in_button);
-        TextView registerButton = (TextView)findViewById(R.id.register_button);
+        Button signUpButton = (Button) findViewById(R.id.sign_up_button);
 
 
-
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
 //                Button cancel = (Button) findViewById(R.id.cancel_button);
 
                 
             }
         });
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-
-//                Button cancel = (Button) findViewById(R.id.cancel_button);
-
-
-
-            }
-        });
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
 
 }

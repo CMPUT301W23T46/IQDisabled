@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.AppCompat.DayNight"
-            android:text="Select from camera roll"
+            android:text="Select from Photos"
             android:layout_marginTop="30dp"
             android:id="@+id/add_cam_roll"
             android:textColorHint="@color/white"
