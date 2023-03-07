@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.QR" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.QR" parent="Theme.AppCompat.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary"></item>
         <item name="colorPrimaryVariant">@color/purple_700</item>

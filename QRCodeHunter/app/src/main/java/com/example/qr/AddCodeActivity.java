@@ -1,13 +1,19 @@
 package com.example.qr;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 public class AddCodeActivity extends AppCompatActivity {
     @Override
@@ -16,20 +22,31 @@ public class AddCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         Button btnCam = (Button) findViewById(R.id.btn_scan);
-        btnCam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent();
-                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivity(intent);
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
+        btnCam.setOnClickListener(v -> {
+            scan();
         });
-        
     }
+
+    private void scan() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Scan your QR code");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barlauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> barlauncher = registerForActivityResult(new ScanContract(), result-> {
+        if (result.getContents() != null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddCodeActivity.this);
+            builder.setTitle("Scan");
+            builder.setMessage(result.getContents());
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).show();
+        }
+    });
 }
