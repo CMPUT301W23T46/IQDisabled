@@ -38,8 +38,6 @@ public class AddCodeActivity extends AppCompatActivity {
                 AddCodeActivity.this.finish();
             }
         });
-
-
     }
 
     private void scan() {
