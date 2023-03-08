@@ -26,8 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_centerVertical="true"
         android:id="@+id/add_code_button"
-        android:layout_below="@id/add_QR_text"
         android:layout_margin="100dp">
 
         <Button
@@ -44,10 +44,12 @@
             />
 
         <Button
+
             android:id="@+id/btn_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#77F1E8FF"
+            android:layout_marginTop="50dp"
             android:text="Back"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
