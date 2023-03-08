@@ -8,17 +8,17 @@
     >
 
     <ImageView
-        android:id="@+id/high_score_back_btn"
+        android:id="@+id/nearby_back_btn"
         android:layout_width="99dp"
         android:layout_height="80dp"
         app:srcCompat="@drawable/back_button" />
 
     <TextView
-        android:id="@+id/high_score_heading"
+        android:id="@+id/nearby_heading"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/high_score_back_btn"
+        android:layout_toRightOf="@id/nearby_back_btn"
         android:fontFamily="casual"
         android:gravity="center"
         android:text="Nearby QRcodes"
@@ -29,7 +29,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="569dp"
-        android:layout_below="@+id/high_score_heading"
+        android:layout_below="@+id/nearby_heading"
         android:layout_marginBottom="80dp"
         android:background="#77F1E8FF">
 
