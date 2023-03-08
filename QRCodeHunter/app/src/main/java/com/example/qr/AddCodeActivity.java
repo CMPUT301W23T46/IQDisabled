@@ -25,13 +25,14 @@ public class AddCodeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        TextView qrCodeInfo= (TextView)findViewById(R.id.QRCode_info_text);
 
         Button btnCam = (Button) findViewById(R.id.btn_scan);
         btnCam.setOnClickListener(v -> {
             scan();
+            qrCodeInfo.setText(result);
         });
-        TextView qrCodeInfo= (TextView)findViewById(R.id.QRCode_info_text);
-        qrCodeInfo.setText(result);
+
 
     }
 
