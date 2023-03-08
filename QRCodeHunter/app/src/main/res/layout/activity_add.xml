@@ -20,6 +20,27 @@
         android:textColor="@color/white"
         android:textSize="50dp"
         android:textStyle="bold" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back"
+        android:id="@+id/btn_back"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/add_QR_text"
+        android:backgroundTint="#977DC5"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_back"
+        android:layout_marginTop="100dp"
+        android:id="@+id/QRCode_info_text"
+        android:text="QR code info"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:editable="true"
+        />
 
 
 
@@ -28,8 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/add_button"
-        android:layout_centerVertical="true"
+        android:id="@+id/add_code_button"
+        android:layout_below="@id/add_QR_text"
+        android:layout_marginTop="400dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
@@ -45,18 +67,21 @@
             android:backgroundTint="#77F1E8FF"
 
             />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/select_cam_roll_btn"
+            android:layout_marginTop="20dp"
             android:theme="@style/Theme.AppCompat.DayNight"
-            android:text="Select from Photos"
-            android:layout_marginTop="30dp"
-            android:id="@+id/add_cam_roll"
-            android:textColorHint="@color/white"
-            android:textSize="20dp"
-            android:backgroundTint="#77F1E8FF"
-            android:textColor="@color/white"
-
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/photo"
+            android:scaleType="centerInside"
+            android:background="#10977DC5"
+            android:layout_below="@+id/add_code_button"
+             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select from camera roll"
             />
 
 
