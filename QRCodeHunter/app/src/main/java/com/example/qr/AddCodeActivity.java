@@ -17,6 +17,8 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanIntentResult;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.security.NoSuchAlgorithmException;
+
 import javax.xml.transform.Result;
 
 public class AddCodeActivity extends AppCompatActivity {
@@ -52,15 +54,28 @@ public class AddCodeActivity extends AppCompatActivity {
     ActivityResultLauncher<ScanOptions> barlauncher = registerForActivityResult(new ScanContract(), result-> {
         if (result.getContents() != null){
             this.result = result.getContents();
-            AlertDialog.Builder builder = new AlertDialog.Builder(AddCodeActivity.this);
-            builder.setTitle("Scan");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).show();
+            QRCodeStats stats = new QRCodeStats(result.getContents());
+            Intent intent = new Intent(AddCodeActivity.this,ShowQRCodeActivity.class);
+            try {
+                String hashContent = stats.hashString();
+//                System.out.println(hashContent);
+                String firstSix = stats.extractFirstSix(hashContent);
+//                System.out.println(firstSix);
+                String name = stats.naming(firstSix);
+//                System.out.println(name);
+                Integer score = stats.scoring(hashContent);
+//                System.out.println(score);
+                String visualRep = stats.visualRep(firstSix);
+//                System.out.println(visualRep);
+                intent.putExtra("hashContent",hashContent);
+                intent.putExtra("firstSix",firstSix);
+                intent.putExtra("name",name);
+                intent.putExtra("score",score);
+                intent.putExtra("visualRep",visualRep);
+                startActivity(intent);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     });

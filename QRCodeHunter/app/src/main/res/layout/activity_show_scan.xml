@@ -29,12 +29,14 @@
             android:text="Visual Representation:"
             android:textColor="@color/white"
             android:layout_margin="20dp"/>
+
         <TextView
+            android:id="@+id/visual_rep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="fillable"
-            android:textColor="@color/white"
-            android:layout_margin="20dp"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
     <LinearLayout
@@ -49,12 +51,14 @@
             android:text="QRCode Name"
             android:textColor="@color/white"
             android:layout_margin="20dp"/>
+
         <TextView
+            android:id="@+id/qrcode_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="fillable"
-            android:textColor="@color/white"
-            android:layout_margin="20dp"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
@@ -71,18 +75,19 @@
             android:layout_margin="20dp"/>
 
         <EditText
+            android:id="@+id/edit_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp" />
 
 
     </LinearLayout>
-    <CheckBox android:id="@+id/checkbox_meat"
+    <CheckBox android:id="@+id/checkbox_geo"
         android:layout_width="wrap_content"
         android:layout_margin="20dp"
         android:layout_height="wrap_content"
         android:text="Record Geolocation" />
-    <CheckBox android:id="@+id/checkbox_cheese"
+    <CheckBox android:id="@+id/checkbox_env"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -112,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:id="@+id/record_env"
+            android:id="@+id/submit_btn"
             android:background="@color/gray"
             android:text="Submit"
             android:textSize="25dp"
