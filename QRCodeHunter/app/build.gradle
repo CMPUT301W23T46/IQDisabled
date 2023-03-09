@@ -43,4 +43,6 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha27"
     implementation "com.google.firebase:firebase-core:20.0.0"
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
