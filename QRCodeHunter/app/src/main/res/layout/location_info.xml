@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#342B49"
+
+    >
+
+    <ImageView
+        android:id="@+id/location_info_back_btn"
+        android:layout_width="99dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/location_info_heading"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/location_info_back_btn"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="Infomation of This Location"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/location_info_image"
+        android:layout_width="291dp"
+        android:layout_height="274dp"
+        android:layout_below="@id/location_info_heading"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        app:srcCompat="@drawable/qr_code_with_bg" />
+
+    <ImageView
+        android:id="@+id/location_info_map_icon"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:layout_below="@id/location_info_image"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="50dp"
+        android:forceHasOverlappingRendering="false"
+        app:srcCompat="@drawable/map" />
+
+    <TextView
+        android:id="@+id/geo_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_info_image"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="51dp"
+        android:layout_toRightOf="@id/location_info_map_icon"
+        android:text="location"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/location_info_star_icon"
+        android:layout_width="39dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/location_info_map_icon"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="85dp"
+
+        android:layout_marginTop="22dp"
+        app:srcCompat="@drawable/stars" />
+
+    <TextView
+        android:id="@+id/score_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_info_map_icon"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="22dp"
+        android:layout_toRightOf="@id/location_info_map_icon"
+        android:text="score"
+        android:textSize="22sp"/>
+
+    <ImageView
+        android:id="@+id/location_info_player_icon"
+        android:layout_width="39dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/location_info_star_icon"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="85dp"
+
+        android:layout_marginTop="22dp"
+        app:srcCompat="@drawable/group" />
+
+    <TextView
+        android:id="@+id/player_output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_info_star_icon"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="22dp"
+        android:layout_toRightOf="@id/location_info_map_icon"
+        android:textSize="22sp"
+        android:text="player" />
+</RelativeLayout>
