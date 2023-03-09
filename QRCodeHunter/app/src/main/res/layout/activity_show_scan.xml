@@ -16,31 +16,39 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="20dp"
         android:textSize="25sp" />
-
     <LinearLayout
-        android:id="@+id/visualRep"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
+        android:id="@+id/capture_preview"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Visual Representation:"
-            android:textColor="@color/white"
-            android:layout_margin="20dp"/>
-
-        <TextView
-            android:id="@+id/visual_rep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="fillable"
-            android:textColor="@color/white" />
-
+        <include layout="@layout/camera_preview" />
     </LinearLayout>
+
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/visualRep"-->
+    <!--        android:layout_width="fill_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+
+    <!--        android:orientation="horizontal">-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="Visual Representation:"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:layout_margin="20dp"/>-->
+
+    <TextView
+        android:id="@+id/visual_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="fillable"
+        android:textColor="@color/white" />
+
+    <!--    </LinearLayout>-->
     <LinearLayout
-        android:id="@+id/qrcode_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
@@ -124,6 +132,6 @@
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"/>
 
-
     </LinearLayout>
+
 </LinearLayout>
