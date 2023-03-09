@@ -9,12 +9,22 @@
         android:layout_height="match_parent" />
 
     <!-- Add other views as needed -->
-    <Button
-        android:id="@+id/btn_capture"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/preview_view"
-        android:layout_centerHorizontal="true"
-        android:text="Capture" />
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+        <Button
+            android:id="@+id/btn_capture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Capture" />
+    </RelativeLayout>
 
 </RelativeLayout>
