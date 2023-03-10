@@ -10,9 +10,9 @@
 
     <LinearLayout
         android:id="@+id/button_view_include"
-        android:layout_width="fill_parent"
-        android:layout_margin="10dp"
-        android:layout_height="70sp"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
