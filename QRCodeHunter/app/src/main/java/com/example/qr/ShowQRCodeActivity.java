@@ -5,12 +5,8 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.ContentValues.TAG;
 import static android.os.Build.VERSION.SDK_INT;
 import android.Manifest;
-import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
 
-import androidx.camera.camera2.interop.Camera2Interop;
 import androidx.camera.view.PreviewView;
-import androidx.camera.core.CameraProvider;
-import androidx.camera.core.CameraX;
 import androidx.camera.core.ImageCapture;
 
 import android.content.Intent;
@@ -18,15 +14,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,18 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -55,22 +44,23 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private PreviewView previewView;
@@ -79,6 +69,7 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
     private LocationRequest mLocationRequest;
     private double latitude;
     private double longitude;
+    FirebaseFirestore db;
 
     private int called_times;
 
@@ -310,29 +301,45 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+//        bitmap = BitmapFactory.decodeByteArray(baos.toByteArray(),0,baos.size());
         byte[] imageData = baos.toByteArray();
 
 //        System.out.println(imageData[1]);
-
         uploadToFirebaseStorage(imageData);
-
     }
 
     private void uploadToFirebaseStorage(byte[] imageData) {
         // Create a Firebase Storage reference to the image
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child("images/image.jpeg");
+        FirebaseFirestore storage = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference = db.collection("QRCode");
 
-        // Upload the image to Firebase Storage
-        UploadTask uploadTask = imageRef.putBytes(imageData);
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-            Log.d(TAG,"Success");
-        }).addOnFailureListener(e -> {
-            Log.d(TAG,"Failed");
-        });
+        HashMap<String, String> data = new HashMap<>();
+//        System.out.println(imageData.toString());
+        data.put("photo",imageData.toString());
+        collectionReference.document("d04b98f48e8f8bcc15c6ae5ac050801cd6dcfd428fb5f9e65c4e16e7807340fa")
+                .set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(ShowQRCodeActivity.this, "working", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ShowQRCodeActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+//        StorageReference imageRef = storageRef.child("images/image.jpeg");
+//
+//        // Upload the image to Firebase Storage
+//        UploadTask uploadTask = imageRef.putBytes(imageData);
+//        uploadTask.addOnSuccessListener(taskSnapshot -> {
+//            Log.d(TAG,"Success");
+//        }).addOnFailureListener(e -> {
+//            Log.d(TAG,"Failed");
+//        });
     }
-
-
-
 }

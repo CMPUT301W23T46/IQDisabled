@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.ExecutionException;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,6 +36,23 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton highestScoreBtn = findViewById(R.id.imageButton14);
         Button viewQRCodesBtn = findViewById(R.id.view_qr_codes_main_btn);
 
+
+        DataBaseHelper dbhelper = new DataBaseHelper();
+//        dbhelper.pushPlayer("Felix","wtkuan@163.com","8375739912",new String[]{"qrd","siejdf"});
+        try {
+            if (dbhelper.checkUserNameExist("Felix", new IQuery() {
+                @Override
+                public void onSuccess(boolean result) {
+                    Toast.makeText(HomeActivity.this, "true", Toast.LENGTH_SHORT).show();
+                }
+            })) {
+                // Do Nothing
+            }
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
