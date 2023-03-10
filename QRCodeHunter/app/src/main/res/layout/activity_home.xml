@@ -50,7 +50,7 @@
             android:textColor="@color/white"
             android:textSize="40dp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="50dp"/>
 
         <Button
             android:id="@+id/view_qr_codes_main_btn"
@@ -79,9 +79,9 @@
 
     <LinearLayout
         android:id="@+id/button_view_include"
-        android:layout_width="fill_parent"
-        android:layout_margin="10dp"
-        android:layout_height="70sp"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
