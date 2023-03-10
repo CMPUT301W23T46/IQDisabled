@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:text="fillable"
         android:textColor="@color/white" />
 
@@ -58,13 +58,34 @@
             android:layout_height="wrap_content"
             android:text="QRCode Name"
             android:textColor="@color/white"
-            android:layout_margin="20dp"/>
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/qrcode_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
+            android:text="fillable"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QRCode Score"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/qrcode_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="fillable"
             android:textColor="@color/white" />
 
@@ -79,14 +100,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Comment: "
-            android:textColor="@color/white"
-            android:layout_margin="20dp"/>
+            android:layout_margin="10dp"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/edit_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp" />
+            android:layout_margin="10dp"
+             />
 
 
     </LinearLayout>

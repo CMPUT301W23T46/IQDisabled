@@ -110,8 +110,10 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         String visualRep = intent.getStringExtra("visualRep");
 
         TextView visual_rep = findViewById(R.id.visual_rep);
+        TextView tw_score = findViewById(R.id.qrcode_score);
         TextView qrcode_name = findViewById(R.id.qrcode_name);
         EditText edt_comment = findViewById(R.id.edit_comment);
+        tw_score.setText(score.toString());
         System.out.println(visualRep);
 
         visual_rep.setText(visualRep);
