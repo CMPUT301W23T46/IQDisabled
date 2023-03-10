@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -280,6 +281,7 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                                         // The image has been captured and saved successfully
                                         Log.d(TAG, "Image saved successfully: " + file.getAbsolutePath());
+                                        compressAndUpload(new File(file.getAbsolutePath()));
                                     }
 
                                     @Override
@@ -301,31 +303,31 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
 
     private void compressAndUpload(File file) {
         // Read the image file as a Bitmap
+//        System.out.println(file == null);
         Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 
-        // Compress the bitmap to JPEG format with 80% quality
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-
-        // Convert the compressed image to a byte array
         byte[] imageData = baos.toByteArray();
 
-        // Upload the compressed image to Firebase Storage
-//        uploadToFirebaseStorage(imageData);
+//        System.out.println(imageData[1]);
+
+        uploadToFirebaseStorage(imageData);
+
     }
 
     private void uploadToFirebaseStorage(byte[] imageData) {
         // Create a Firebase Storage reference to the image
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child("images/image.jpg");
+        StorageReference imageRef = storageRef.child("images/image.jpeg");
 
         // Upload the image to Firebase Storage
         UploadTask uploadTask = imageRef.putBytes(imageData);
         uploadTask.addOnSuccessListener(taskSnapshot -> {
-            // Image uploaded successfully
+            Log.d(TAG,"Success");
         }).addOnFailureListener(e -> {
-            // Error occurred while uploading image
+            Log.d(TAG,"Failed");
         });
     }
 
