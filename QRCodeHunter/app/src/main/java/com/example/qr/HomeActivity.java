@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
 public class HomeActivity extends AppCompatActivity {
@@ -38,21 +39,46 @@ public class HomeActivity extends AppCompatActivity {
 
 
         DataBaseHelper dbhelper = new DataBaseHelper();
+        //pushPlayer调用
 //        dbhelper.pushPlayer("Felix","wtkuan@163.com","8375739912",new String[]{"qrd","siejdf"});
+
+        //checkUserNameExist调用
+//        try {
+//            if (dbhelper.checkUserNameExist("Felix", new IQuery() {
+//                @Override
+//                public void onSuccess(boolean result) {
+//                    Toast.makeText(HomeActivity.this, "true", Toast.LENGTH_SHORT).show();
+//                }
+//            })) {
+//                // Do Nothing
+//            }
+//        } catch (ExecutionException e) {
+//            throw new RuntimeException(e);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        //pushQRCode use case
+//        dbhelper.pushQRCode("w2soievwn",30,"low code","--11234",59.2,-133,new String[]{"hello"});
+//        dbhelper.player_add_qrcode(new Player("Felix","wtkuan@163.com","8375739912"),"wehjfwrg");
+//        QRCode qrCode = null;
+//        try {
+//            qrCode = new QRCode("w2oievn",new String[] {"hello","nice work"});
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
+////        dbhelper.pushQRCode(qrCode,-34.34,-133.2);
+//        dbhelper.qrcode_add_comment(qrCode,"well done");
+        Player ply = new Player("Alice","Alice@ualberta.ca","987657890");
+        QRCode qrCode = null;
         try {
-            if (dbhelper.checkUserNameExist("Felix", new IQuery() {
-                @Override
-                public void onSuccess(boolean result) {
-                    Toast.makeText(HomeActivity.this, "true", Toast.LENGTH_SHORT).show();
-                }
-            })) {
-                // Do Nothing
-            }
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+            qrCode = new QRCode("sdfgn",new String[] {"3o","work"});
+        } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+//        dbhelper.pushPlayer(ply,new QRCode[]{qrCode});
+
+        dbhelper.delete_Player_QRCode(ply,qrCode);
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
