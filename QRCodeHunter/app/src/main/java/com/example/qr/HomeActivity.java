@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton addBtn = findViewById(R.id.add_btn);
         ImageButton mapBtn = findViewById(R.id.map_btn);
         ImageButton profileBtn = findViewById(R.id.profile_btn);
-
+        Button viewQRCodesBtn = findViewById(R.id.view_qr_codes_main_btn);
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +55,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewQRCodesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, MyQRCodeActivity.class);
                 startActivity(intent);
             }
         });

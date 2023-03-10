@@ -3,6 +3,7 @@ package com.example.qr;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +17,10 @@ public class MyQRCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_qrcodes);
 
         Button statisticsButton = findViewById(R.id.bottom_button_1);
-        Button rankingButton = findViewById(R.id.bottom_button_2);
-        Button mapBtn = findViewById(R.id.bottom_button_3);
+        Button RankingButton = findViewById(R.id.bottom_button_2);
+        Button RemoveButton = findViewById(R.id.bottom_button_3);
         ImageButton backButton = findViewById(R.id.imageButton13);
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
