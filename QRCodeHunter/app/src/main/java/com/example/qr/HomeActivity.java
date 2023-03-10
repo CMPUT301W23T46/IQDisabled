@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton addBtn = findViewById(R.id.add_btn);
         ImageButton mapBtn = findViewById(R.id.map_btn);
         ImageButton profileBtn = findViewById(R.id.profile_btn);
+        ImageButton highestScoreBtn = findViewById(R.id.imageButton14);
         Button viewQRCodesBtn = findViewById(R.id.view_qr_codes_main_btn);
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +64,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, MyQRCodeActivity.class);
+                startActivity(intent);
+            }
+        });
+        highestScoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, HighestScoreOfAllPlayerActivity.class);
                 startActivity(intent);
             }
         });

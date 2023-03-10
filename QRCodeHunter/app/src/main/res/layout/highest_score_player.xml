@@ -7,11 +7,13 @@
 
     >
 
-    <ImageView
+    <ImageButton
         android:id="@+id/high_score_back_btn"
         android:layout_width="99dp"
         android:layout_height="80dp"
-        app:srcCompat="@drawable/back_button" />
+        app:srcCompat="@drawable/back_button"
+        android:scaleType="centerCrop"
+        android:backgroundTint="#342B49"/>
 
     <TextView
         android:id="@+id/high_score_heading"
