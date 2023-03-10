@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
+
+    ImageButton searchBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton profileBtn = findViewById(R.id.profile_btn);
         ImageButton highestScoreBtn = findViewById(R.id.imageButton14);
         Button viewQRCodesBtn = findViewById(R.id.view_qr_codes_main_btn);
+
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +77,17 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        searchBtn = findViewById(R.id.home_search_btn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchFragment searchFragment = new SearchFragment();
+                searchFragment.show(getSupportFragmentManager(),"search fragment");
+            }
+        });
+
+
 
 
 

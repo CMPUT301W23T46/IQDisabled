@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#342B49">
+
+
+    <Button
+        android:id="@+id/search_player_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:background="#77F1E8FF"
+        android:text="Search for Player" />
+
+    <Button
+        android:id="@+id/search_QRcode_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_player_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#77F1E8FF"
+        android:text="Search for QR Code"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_QRcode_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#77F1E8FF"
+        android:text="CANCEL"
+        android:textSize="20sp"/>
+</RelativeLayout>
