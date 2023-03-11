@@ -22,4 +22,16 @@ public class Player {
     public String getPhone_number() {
         return phone_number;
     }
+
+    public void setPlayName(String playName) {
+        this.playName = playName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
 }

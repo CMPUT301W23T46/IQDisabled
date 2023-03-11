@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -75,7 +76,20 @@ public class HomeActivity extends AppCompatActivity {
         }
 //        dbhelper.pushPlayer(ply,new QRCode[]{qrCode});
 
-        dbhelper.delete_Player_QRCode(ply,qrCode);
+//        dbhelper.delete_Player_QRCode(ply,qrCode);
+        Player player1;
+        try {
+            dbhelper.getPlayer("Felix", new IQuery2() {
+                @Override
+                public void onSuccess(Player player) {
+                    Toast.makeText(HomeActivity.this, player.getPhone_number(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+//        Toast.makeText(this, player1.getEmail()+player1.getPhone_number(), Toast.LENGTH_SHORT).show();
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,10 +144,5 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
 }

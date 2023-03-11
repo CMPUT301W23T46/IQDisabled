@@ -15,11 +15,18 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class DataBaseHelper {
     FirebaseFirestore db;
@@ -228,5 +235,36 @@ public class DataBaseHelper {
                         Log.d("Working","Data deleted successfully!");
                     }
                 });
+    }
+
+    public Player getPlayer(String playerName, IQuery2 iquery) throws Exception {
+        db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("Players").document(playerName);
+        Player player = new Player("","","");
+
+//        ExecutorService threadpool = Executors.newCachedThreadPool();
+        final Map<String, Object>[] result = new Map[1];
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        result[0] = document.getData();
+                        player.setPlayName(playerName);
+                        player.setPhone_number(result[0].get("phone").toString());
+                        player.setEmail(result[0].get("email").toString());
+                        Log.d(TAG, "Completed");
+                        iquery.onSuccess(player);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+        return player;
     }
 }
