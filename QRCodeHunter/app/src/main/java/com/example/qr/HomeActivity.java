@@ -2,18 +2,14 @@ package com.example.qr;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutionException;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -36,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton profileBtn = findViewById(R.id.profile_btn);
         ImageButton highestScoreBtn = findViewById(R.id.imageButton14);
         Button viewQRCodesBtn = findViewById(R.id.view_qr_codes_main_btn);
+        ImageButton searchBtn = findViewById(R.id.home_search_btn);
 
 
         DataBaseHelper dbhelper = new DataBaseHelper();
@@ -125,12 +122,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        searchBtn = findViewById(R.id.home_search_btn);
+
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchFragment searchFragment = new SearchFragment();
-                searchFragment.show(getSupportFragmentManager(),"search fragment");
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 

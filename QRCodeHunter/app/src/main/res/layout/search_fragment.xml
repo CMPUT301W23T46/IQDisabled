@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_fragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#342B49">
 
 
@@ -12,11 +12,12 @@
         android:id="@+id/search_player_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
 
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="200dp"
         android:textSize="20sp"
         android:background="#77F1E8FF"
         android:text="Search for Player" />
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_player_btn"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
 
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/search_QRcode_btn"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
