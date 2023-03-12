@@ -66,7 +66,7 @@ public class DataBaseHelper {
         }
     }
 
-    public boolean checkUserNameExist(String username, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
+    public void checkUserNameExist(String username, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
         db = FirebaseFirestore.getInstance();
         final boolean[] result = new boolean[1];
         CollectionReference userNameRefCollection = db.collection("Players");
@@ -89,7 +89,6 @@ public class DataBaseHelper {
                 }
             }
         });
-        return result[0];
     }
 
     public boolean checkQRCodeExist(String hashcode, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
