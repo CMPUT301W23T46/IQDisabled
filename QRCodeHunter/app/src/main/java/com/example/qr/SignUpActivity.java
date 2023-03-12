@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,33 +58,51 @@ public class SignUpActivity extends AppCompatActivity {
                 String emailString = email.getText().toString();
                 String phoneString = phoneNum.getText().toString();
 
-                SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("username",usernameString);
-                editor.putString("password",passwordString);
-                editor.putString("email",emailString);
-                editor.putString("phone",phoneString);
-                editor.putBoolean("loggedIn", true);
-                editor.apply();
 
-                Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
-                startActivity(intent);
 
                 player.setPlayName(usernameString);
                 player.setEmail(emailString);
                 player.setPhone_number(phoneString);
                 QRCode[] qrCodeList = new QRCode[0];
                 DataBaseHelper dbHelper = new DataBaseHelper();
-                dbHelper.pushPlayer(player, qrCodeList);
+                OnCheckQRCodeExistListener listener = new OnCheckQRCodeExistListener() {
+                    @Override
+                    public void onSuccess(boolean exists) {
+                        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        if (exists) {
+                            editor.putBoolean("loggedIn", false);
+                            editor.apply();
+                            Intent intent = new Intent(SignUpActivity.this,SignUpActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(SignUpActivity.this, "The user name exists, please try other names", Toast.LENGTH_SHORT).show();
+                        } else {
+                            editor.putString("username",usernameString);
+                            editor.putString("password",passwordString);
+                            editor.putString("email",emailString);
+                            editor.putString("phone",phoneString);
+                            editor.putBoolean("loggedIn", true);
+                            editor.apply();
+
+                            Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
+                            startActivity(intent);
+                            dbHelper.pushPlayer(player, qrCodeList);
+                        }
+                    }
+                };
+
+                try {
+                    dbHelper.checkUserNameExist(player.getPlayName(), listener);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
 
             }
+
+
         });
-
-
-
-
     }
-
-
 }
