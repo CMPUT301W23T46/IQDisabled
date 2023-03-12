@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -299,11 +300,56 @@ public class DataBaseHelper {
                 });
     }
 
-    public void getQRCodeByName(String hashcode) {
+    public void getComments(String hashcode, OnGetCommentByHashListener iquery) {
         db = FirebaseFirestore.getInstance();
         CollectionReference playersRef = db.collection("QRCode");
+        playersRef.document(hashcode).collection("Comments").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot querySnapshot) {
+                        String[] documentNames = new String[querySnapshot.size()];
+                        int i = 0;
+                        for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
+                            documentNames[i] = documentSnapshot.getId();
+                            i++;
+                        }
+                        try {
+                            iquery.onSuccess(documentNames);
+                        } catch (NoSuchAlgorithmException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error getting documents.", e);
+                    }
+                });
     }
 
-    public void getQRCodeByNames(String[] hashcodes) {
+    public void getQRCodeByName(String hashcode, OnGetQRCodeListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference playersRef = db.collection("QRCode");
+        DataBaseHelper helper = new DataBaseHelper();
+        helper.getComments(hashcode, new OnGetCommentByHashListener() {
+            @Override
+            public void onSuccess(String[] comments) throws NoSuchAlgorithmException {
+                QRCode result = new QRCode(hashcode,comments);
+                iquery.onSuccess(result);
+            }
+        });
+
+    }
+
+
+    public void getQRCodeByNames(String username, OnGetQRCodeNamesListener iquery) {
+        DataBaseHelper helper = new DataBaseHelper();
+        helper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) {
+
+            }
+        });
     }
 }
