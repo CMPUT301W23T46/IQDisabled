@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
 ////        dbhelper.pushQRCode(qrCode,-34.34,-133.2);
 //        dbhelper.qrcode_add_comment(qrCode,"well done");
 
+
         dbhelper.getComments("61fa93bca0736dd2e135c80ed083a77eedf61c0b2b557e418686bf5d246dc4dd", new OnGetCommentByHashListener() {
             @Override
             public void onSuccess(String[] comments) {

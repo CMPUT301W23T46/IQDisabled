@@ -276,6 +276,32 @@ public class DataBaseHelper {
         return length[0];
     }
 
+    public void getQRCodeGeolocations(String hashcode, OnGetQRCodeGeolocations iquery) {
+        final HashMap<String,Double>[] geo = new HashMap[1];
+        geo[0] = new HashMap<String,Double>();
+        final Map<String, Object>[] result = new Map[1];
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("QRCode");
+        collectionRef.document(hashcode).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        result[0] = document.getData();
+                        String latitude = result[0].get("latitude").toString();
+                        String longitude = result[0].get("longitude").toString();
+                        double lat = Double.parseDouble(latitude);
+                        double lon = Double.parseDouble(longitude);
+                        geo[0].put("longitude",lon);
+                        geo[0].put("latitude",lat);
+                        iquery.onSuccess(geo[0]);
+                    }
+                }
+            }
+        });
+    }
+
     public void getQRCodeByName_hash(String username, OnGetHashByUsernameListener iquery) {
         db = FirebaseFirestore.getInstance();
         CollectionReference playersRef = db.collection("Players");
@@ -352,4 +378,29 @@ public class DataBaseHelper {
             }
         });
     }
+
+    public void getAllQRCode(OnGetAllQRCodeListener iquery){
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef = db.collection("QRCode");
+
+        collecRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                String[] result = new String[queryDocumentSnapshots.size()];
+                int i = 0;
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    result[i] = documentSnapshot.getId();
+                    i++;
+                }
+                iquery.onSuccess(result);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"Falied");
+            }
+        });
+    }
+
+
 }

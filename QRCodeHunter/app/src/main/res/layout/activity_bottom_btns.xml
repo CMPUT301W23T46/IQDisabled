@@ -5,12 +5,12 @@
     android:layout_height="wrap_content"
     android:background="#342B49"
     android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
     <Button
         android:id="@+id/bottom_button_1"
-        android:layout_width="55pt"
-        android:layout_height="25pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="#977DC5"
         android:layout_marginRight="13dp"
         android:theme="@style/Theme.AppCompat.DayNight"
@@ -20,8 +20,8 @@
 
     <Button
         android:id="@+id/bottom_button_2"
-        android:layout_width="55pt"
-        android:layout_height="25pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:theme="@style/Theme.AppCompat.DayNight"
         android:backgroundTint="#977DC5"
         android:text="Ranking"
@@ -31,8 +31,8 @@
 
     <Button
         android:id="@+id/bottom_button_3"
-        android:layout_width="55pt"
-        android:layout_height="25pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
         android:theme="@style/Theme.AppCompat.DayNight"
         android:backgroundTint="#977DC5"
