@@ -1,5 +1,5 @@
 package com.example.qr;
 
-public interface IQuery {
+public interface OnCheckQRCodeExistListener {
         void onSuccess(boolean result);
 }

@@ -67,6 +67,15 @@ public class HomeActivity extends AppCompatActivity {
 //        }
 ////        dbhelper.pushQRCode(qrCode,-34.34,-133.2);
 //        dbhelper.qrcode_add_comment(qrCode,"well done");
+
+        dbhelper.getQRCodeByName_hash("Felix", new OnGetHashByUsernameListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) {
+                for (String hashcode: hashcodes) {
+                    System.out.println(hashcode);
+                }
+            }
+        });
         Player ply = new Player("Alice","Alice@ualberta.ca","987657890");
         QRCode qrCode = null;
         try {
@@ -79,24 +88,27 @@ public class HomeActivity extends AppCompatActivity {
 //        dbhelper.delete_Player_QRCode(ply,qrCode);
         Player player1;
         try {
-            dbhelper.getPlayer("Felix", new IQuery2() {
+            dbhelper.getPlayer("Felix", new OnGetPlayerListener() {
                 @Override
                 public void onSuccess(Player player) {
                     Toast.makeText(HomeActivity.this, player.getPhone_number(), Toast.LENGTH_SHORT).show();
                 }
             });
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+
+
 //        Toast.makeText(this, player1.getEmail()+player1.getPhone_number(), Toast.LENGTH_SHORT).show();
-        contactBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ContactActivity.class);
-                startActivity(intent);
-            }
-        });
+                contactBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(HomeActivity.this, ContactActivity.class);
+                        startActivity(intent);
+                    }
+                });
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

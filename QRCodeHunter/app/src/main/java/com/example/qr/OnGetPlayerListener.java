@@ -1,5 +1,5 @@
 package com.example.qr;
 
-public interface IQuery2 {
+public interface OnGetPlayerListener {
     void onSuccess(Player player);
 }

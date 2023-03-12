@@ -2,7 +2,6 @@ package com.example.qr;
 
 import static android.content.ContentValues.TAG;
 
-import android.media.Image;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,18 +14,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class DataBaseHelper {
     FirebaseFirestore db;
@@ -72,7 +65,7 @@ public class DataBaseHelper {
         }
     }
 
-    public boolean checkUserNameExist(String username, IQuery iQuery) throws ExecutionException, InterruptedException {
+    public boolean checkUserNameExist(String username, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
         db = FirebaseFirestore.getInstance();
         final boolean[] result = new boolean[1];
         CollectionReference userNameRefCollection = db.collection("Players");
@@ -84,10 +77,10 @@ public class DataBaseHelper {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         result[0] = true;
-                        iQuery.onSuccess(result[0]);
+                        onCheckQRCodeExistListener.onSuccess(result[0]);
                     } else {
                         result[0] = false;
-                        iQuery.onSuccess(result[0]);
+                        onCheckQRCodeExistListener.onSuccess(result[0]);
                     }
                 }
                 else {
@@ -98,7 +91,7 @@ public class DataBaseHelper {
         return result[0];
     }
 
-    public boolean checkQRCodeExist(String hashcode, IQuery iQuery) throws ExecutionException, InterruptedException {
+    public boolean checkQRCodeExist(String hashcode, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
         db = FirebaseFirestore.getInstance();
         final boolean[] result = new boolean[1];
         CollectionReference userNameRefCollection = db.collection("QRCode");
@@ -110,10 +103,10 @@ public class DataBaseHelper {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         result[0] = true;
-                        iQuery.onSuccess(result[0]);
+                        onCheckQRCodeExistListener.onSuccess(result[0]);
                     } else {
                         result[0] = false;
-                        iQuery.onSuccess(result[0]);
+                        onCheckQRCodeExistListener.onSuccess(result[0]);
                     }
                 }
                 else {
@@ -237,7 +230,7 @@ public class DataBaseHelper {
                 });
     }
 
-    public Player getPlayer(String playerName, IQuery2 iquery) throws Exception {
+    public Player getPlayer(String playerName, OnGetPlayerListener iquery) throws Exception {
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Players").document(playerName);
         Player player = new Player("","","");
@@ -266,5 +259,51 @@ public class DataBaseHelper {
         });
 
         return player;
+    }
+
+    public int getQRCodesNum(String playerName, OnQRCodeLengthComplete iquery) {
+        final int[] length = {0};
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("Players").document(playerName).collection("QRCode");
+        collectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                length[0] = queryDocumentSnapshots.size();
+                iquery.onSuccess(length[0]);
+            }
+        });
+        return length[0];
+    }
+
+    public void getQRCodeByName_hash(String username, OnGetHashByUsernameListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference playersRef = db.collection("Players");
+        playersRef.document(username).collection("QRCode").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot querySnapshot) {
+                        String[] documentNames = new String[querySnapshot.size()];
+                        int i = 0;
+                        for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
+                            documentNames[i] = documentSnapshot.getId();
+                            i++;
+                        }
+                        iquery.onSuccess(documentNames);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error getting documents.", e);
+                    }
+                });
+    }
+
+    public void getQRCodeByName(String hashcode) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference playersRef = db.collection("QRCode");
+    }
+
+    public void getQRCodeByNames(String[] hashcodes) {
     }
 }
