@@ -3,7 +3,6 @@ package com.example.qr;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +33,14 @@ public class MyQRCodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MyQRCodeActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RankingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyQRCodeActivity.this, MyRankingActivity.class);
                 startActivity(intent);
             }
         });
