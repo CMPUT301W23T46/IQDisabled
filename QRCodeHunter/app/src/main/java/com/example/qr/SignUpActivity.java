@@ -1,15 +1,32 @@
 package com.example.qr;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
 public class SignUpActivity extends AppCompatActivity {
+
+    Player player = new Player("","","");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +67,22 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
                 startActivity(intent);
+
+                player.setPlayName(usernameString);
+                player.setEmail(emailString);
+                player.setPhone_number(phoneString);
+                QRCode[] qrCodeList = new QRCode[0];
+                DataBaseHelper dbHelper = new DataBaseHelper();
+                dbHelper.pushPlayer(player, qrCodeList);
+
+
             }
         });
+
+
+
+
     }
+
+
 }
