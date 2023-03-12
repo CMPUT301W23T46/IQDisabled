@@ -26,7 +26,7 @@
     </TextView>
 
     <EditText
-        android:id="@+id/search_fragment_geo_input"
+        android:id="@+id/search_fragment_latitude_input"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="-1dp"
@@ -34,7 +34,23 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="40dp"
         android:layout_toEndOf="@id/search_fragment_geo"
-        android:hint="location"
+        android:hint="Latitude"
+        android:textSize="17sp">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/search_fragment_longitude_input"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+
+
+        android:layout_below="@id/search_fragment_latitude_input"
+
+        android:layout_marginTop="-45dp"
+
+        android:layout_toEndOf="@id/search_fragment_geo"
+        android:hint="Longitude"
         android:textSize="17sp">
 
     </EditText>
