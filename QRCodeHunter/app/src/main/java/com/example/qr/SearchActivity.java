@@ -11,7 +11,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_fragment);
+        setContentView(R.layout.activity_search);
         Button searchByNameBtn = findViewById(R.id.search_player_btn);
         Button searchByCodeBtn = findViewById(R.id.search_QRcode_btn);
         Button cancelBtn = findViewById(R.id.cancel_btn);

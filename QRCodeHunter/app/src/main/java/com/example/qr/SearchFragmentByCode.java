@@ -29,9 +29,9 @@ public class SearchFragmentByCode extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View v = inflater.inflate(R.layout.search_fragment_by_name,container,false);
-        searchByCodeAddBtn = v.findViewById(R.id.search_by_name_add_btn);
-        searchByCodeCancelBtn = v.findViewById(R.id.search_by_name_cancel_btn);
+        View v = inflater.inflate(R.layout.search_fragment_by_code,container,false);
+        searchByCodeAddBtn = v.findViewById(R.id.search_by_code_add_btn);
+        searchByCodeCancelBtn = v.findViewById(R.id.search_by_code_cancel_btn);
         searchByCodeAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
