@@ -94,7 +94,7 @@ public class QRCodeStats {
         return result;
     }
 
-    public int scoring(String hexString) {
+    public static int scoring(String hexString) {
         List<String> repeatedCharsList = new ArrayList<>();
         char[] chars = hexString.toCharArray();
 
@@ -129,7 +129,7 @@ public class QRCodeStats {
         return result;
     }
 
-    public String visualRep(String firstSixBits) {
+    public static String visualRep(String firstSixBits) {
         int index = 0;
         String[][] temp = new String[8][10];
         while (index <= 5) {
