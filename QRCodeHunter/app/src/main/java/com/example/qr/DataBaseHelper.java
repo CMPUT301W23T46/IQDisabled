@@ -366,14 +366,22 @@ public class DataBaseHelper {
         });
 
     }
-
-
-    public void getQRCodeByNames(String username, OnGetQRCodeNamesListener iquery) {
+    public void getQRCodesByName(String username, OnGetQRCodeNamesListener iquery) {
         DataBaseHelper helper = new DataBaseHelper();
         helper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
             @Override
             public void onSuccess(String[] hashcodes) {
-
+                QRCode[] qrCodes = new QRCode[hashcodes.length];
+                int index = 0;
+                for (String hashcode: hashcodes) {
+                    helper.getQRCodeByName(hashcode, new OnGetQRCodeListener() {
+                        @Override
+                        public void onSuccess(QRCode qrCode) {
+                            qrCodes[index] = qrCode;
+                        }
+                    });
+                }
+                iquery.onSuccess(qrCodes);
             }
         });
     }

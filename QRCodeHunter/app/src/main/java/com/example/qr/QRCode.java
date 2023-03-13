@@ -22,6 +22,18 @@ public class QRCode {
         this.visual_rep = s.visualRep(firstSix);
         this.comments = comments;
     }
+    public QRCode(String hashCode) {
+        this.content = "";
+        this.hashCode = hashCode;
+        QRCodeStats s = new QRCodeStats(content);
+        String hash = hashCode;
+        this.hashCode = hash;
+        this.score = s.scoring(hash);
+        String firstSix = s.extractFirstSix(hash);
+        this.qrcodeName = s.naming(firstSix);
+        this.visual_rep = s.visualRep(firstSix);
+        this.comments = new String[]{""};
+    }
 
     public String getHashCode() {
         return hashCode;

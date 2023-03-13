@@ -37,6 +37,24 @@ public class HomeActivity extends AppCompatActivity {
 
 
         DataBaseHelper dbhelper = new DataBaseHelper();
+
+        try {
+            QRCode qr = new QRCode("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",new String[]{"se"});
+            dbhelper.pushQRCode(qr,123,23);
+            System.out.println(qr.getHashCode());
+            dbhelper.player_add_qrcode(new Player(username,email,phone), qr.getHashCode());
+            dbhelper.getComments(qr.getHashCode(), new OnGetCommentByHashListener() {
+                @Override
+                public void onSuccess(String[] comments) throws NoSuchAlgorithmException {
+                    for (String comment: comments) {
+                        System.out.println(comment);
+                    }
+                }
+            });
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
         //pushPlayer调用
 //        dbhelper.pushPlayer("Felix","wtkuan@163.com","8375739912",new String[]{"qrd","siejdf"});
 
@@ -69,14 +87,14 @@ public class HomeActivity extends AppCompatActivity {
 //        dbhelper.qrcode_add_comment(qrCode,"well done");
 
 
-        dbhelper.getComments("61fa93bca0736dd2e135c80ed083a77eedf61c0b2b557e418686bf5d246dc4dd", new OnGetCommentByHashListener() {
-            @Override
-            public void onSuccess(String[] comments) {
-                for (String comment : comments) {
-                    System.out.println(comment);
-                }
-            }
-        });
+//        dbhelper.getComments("61fa93bca0736dd2e135c80ed083a77eedf61c0b2b557e418686bf5d246dc4dd", new OnGetCommentByHashListener() {
+//            @Override
+//            public void onSuccess(String[] comments) {
+//                for (String comment : comments) {
+//                    System.out.println(comment);
+//                }
+//            }
+//        });
         Player ply = new Player("Alice","Alice@ualberta.ca","987657890");
         QRCode qrCode = null;
         try {
