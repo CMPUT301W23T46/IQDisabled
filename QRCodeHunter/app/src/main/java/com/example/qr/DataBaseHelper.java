@@ -230,7 +230,7 @@ public class DataBaseHelper {
                 });
     }
 
-    public Player getPlayer(String playerName, OnGetPlayerListener iquery) throws Exception {
+    public void getPlayer(String playerName, OnGetPlayerListener iquery) throws Exception {
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Players").document(playerName);
         Player player = new Player("","","");
@@ -257,8 +257,6 @@ public class DataBaseHelper {
                 }
             }
         });
-
-        return player;
     }
 
     public int getQRCodesNum(String playerName, OnQRCodeLengthComplete iquery) {
@@ -279,6 +277,7 @@ public class DataBaseHelper {
         final HashMap<String,Double>[] geo = new HashMap[1];
         geo[0] = new HashMap<String,Double>();
         final Map<String, Object>[] result = new Map[1];
+        result[0] = new HashMap<String,Object>();
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionRef = db.collection("QRCode");
         collectionRef.document(hashcode).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -290,6 +289,7 @@ public class DataBaseHelper {
                         result[0] = document.getData();
                         String latitude = result[0].get("latitude").toString();
                         String longitude = result[0].get("longitude").toString();
+                        System.out.println(latitude.toString()+longitude.toString());
                         double lat = Double.parseDouble(latitude);
                         double lon = Double.parseDouble(longitude);
                         geo[0].put("longitude",lon);

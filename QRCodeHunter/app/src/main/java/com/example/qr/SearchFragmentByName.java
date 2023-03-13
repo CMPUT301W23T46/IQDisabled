@@ -1,10 +1,12 @@
 package com.example.qr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -34,7 +36,25 @@ public class SearchFragmentByName extends DialogFragment {
         searchByNameAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo
+                EditText edx = getView().findViewById(R.id.search_fragment_name_input);
+                String username = edx.getText().toString();
+                Intent intent = new Intent(getActivity(),ShowOtherProfile.class);
+                DataBaseHelper dbhelper = new DataBaseHelper();
+                try {
+                    dbhelper.getPlayer(username, new OnGetPlayerListener() {
+                        @Override
+                        public void onSuccess(Player player) {
+                            intent.putExtra("name",username);
+                            intent.putExtra("phone",player.getPhone_number());
+                            intent.putExtra("email",player.getEmail());
+                            startActivity(intent);
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+
             }
         });
 
