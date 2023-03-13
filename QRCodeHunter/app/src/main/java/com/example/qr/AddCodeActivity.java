@@ -20,9 +20,16 @@ import com.journeyapps.barcodescanner.ScanOptions;
 import java.security.NoSuchAlgorithmException;
 
 import javax.xml.transform.Result;
-
+/**
+ * The AddCodeActivity class is responsible for scanning QR codes and displaying the results.
+ */
 public class AddCodeActivity extends AppCompatActivity {
     String result;
+    /**
+     * Called when the activity is created.
+     *
+     * @param savedInstanceState the saved instance state of the activity
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +49,9 @@ public class AddCodeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Scans a QR code and launches an activity to display the results.
+     */
     private void scan() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Scan your QR code");
@@ -51,6 +61,9 @@ public class AddCodeActivity extends AppCompatActivity {
         barlauncher.launch(options);
     }
 
+    /**
+     * A launcher for the scan activity result.
+     */
     ActivityResultLauncher<ScanOptions> barlauncher = registerForActivityResult(new ScanContract(), result-> {
         if (result.getContents() != null){
             this.result = result.getContents();

@@ -12,8 +12,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * The HomeActivity class extends the AppCompatActivity class and is responsible for displaying
+ * the entry to show user's qrcodes and the entry for searching up other user's profile and qrcodes
+ */
 public class HomeActivity extends AppCompatActivity {
 
+    /**
+     * Called when the activity is starting. Retrieves the user's contact information from shared preferences
+     * and sets up click listeners for navigation buttons to the home screen, map screen, profile screen,
+     * and add code screen.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then
+     *                             this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     *                             Otherwise, it is null.
+     */
     ImageButton searchBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

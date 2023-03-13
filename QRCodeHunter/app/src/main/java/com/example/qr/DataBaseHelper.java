@@ -21,10 +21,20 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
+/**
+ * The DataBaseHelper class aims to contain all the actions do to the database, including adding, deleting, searching
+ * And
+ */
 public class DataBaseHelper {
     FirebaseFirestore db;
 
+    /**
+     * Adds a player to the Firestore database with their email, phone number,
+     * and associated QR codes.
+     *
+     * @param player the player to add to the database
+     * @param qrCodes an array of QRCode objects associated with the player
+     */
     public void pushPlayer(Player player, QRCode[] qrCodes) {
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("Players");
@@ -66,6 +76,14 @@ public class DataBaseHelper {
         }
     }
 
+    /**
+     * Checks whether a given username exists in the Firestore database.
+     *
+     * @param username the username to check for existence
+     * @param onCheckQRCodeExistListener an interface for listening to the result of the check
+     * @throws ExecutionException if the task executing the check fails
+     * @throws InterruptedException if the thread executing the check is interrupted
+     */
     public void checkUserNameExist(String username, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
         db = FirebaseFirestore.getInstance();
         final boolean[] result = new boolean[1];
@@ -91,6 +109,15 @@ public class DataBaseHelper {
         });
     }
 
+    /**
+     * Checks whether a QR code with the given hash code exists in the database.
+     *
+     * @param hashcode the hash code of the QR code to check for existence
+     * @param onCheckQRCodeExistListener the listener to handle the result of the check
+     * @return a boolean value indicating whether the QR code exists in the database (may be inaccurate due to asynchronous behavior)
+     * @throws ExecutionException if the task fails due to an error
+     * @throws InterruptedException if the task is interrupted
+     */
     public boolean checkQRCodeExist(String hashcode, OnCheckQRCodeExistListener onCheckQRCodeExistListener) throws ExecutionException, InterruptedException {
         db = FirebaseFirestore.getInstance();
         final boolean[] result = new boolean[1];
@@ -117,6 +144,13 @@ public class DataBaseHelper {
         return result[0];
     }
 
+    /**
+
+     * Adds a new QRCode to the Firestore database and stores its associated information, including score, location and comments.
+     * @param qrCode The QRCode object to be stored.
+     * @param latitude The latitude coordinate of the QRCode's location.
+     * @param longitude The longitude coordinate of the QRCode's location.
+     */
     public void pushQRCode(QRCode qrCode, double latitude, double longitude) {
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("QRCode");
@@ -158,6 +192,13 @@ public class DataBaseHelper {
         }
     }
 
+    /**
+
+     * Adds a QR code to a player's collection of QR codes in the database.
+
+     * @param player The player to add the QR code to.
+     * @param hashcode The hash code of the QR code to add.
+     */
     public void player_add_qrcode(Player player, String hashcode) {
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("Players").document(player.getPlayName()).collection("QRCode");
@@ -177,6 +218,12 @@ public class DataBaseHelper {
                 });
     }
 
+    /**
+     * Adds a comment to a QRCode object in the database.
+     *
+     * @param qrCode the QRCode object to which the comment will be added
+     * @param comment the comment to add to the QRCode object
+     */
     public void qrcode_add_comment(QRCode qrCode, String comment) {
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("QRCode").document(qrCode.getHashCode()).collection("Comments");
@@ -196,6 +243,12 @@ public class DataBaseHelper {
                 });
     }
 
+
+    /**
+
+     * Deletes a player's data from the database.
+     * @param player the Player object representing the player whose data will be deleted
+     */
     public void delete_Players(Player player) {
         db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("Players");
@@ -212,6 +265,12 @@ public class DataBaseHelper {
         });
     }
 
+    /**
+
+     * This method deletes the specified QR code from the player's collection of QR codes in the Firestore database.
+     * @param player the player object whose collection of QR codes will be updated
+     * @param qrCode the QR code object to be deleted from the player's collection
+     */
     public void delete_Player_QRCode(Player player, QRCode qrCode) {
         db  = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("Players").document(player.getPlayName())
@@ -230,6 +289,13 @@ public class DataBaseHelper {
                 });
     }
 
+    /**
+     * Retrieves a player object from the database using their player name.
+     *
+     * @param playerName the name of the player to retrieve
+     * @param iquery an instance of OnGetPlayerListener to handle the callback function when the player is successfully retrieved
+     * @throws Exception if there is an error retrieving the player from the database
+     */
     public void getPlayer(String playerName, OnGetPlayerListener iquery) throws Exception {
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Players").document(playerName);
@@ -259,6 +325,13 @@ public class DataBaseHelper {
         });
     }
 
+    /**
+     * Returns the number of QR codes associated with a given player.
+     *
+     * @param playerName the name of the player to retrieve the QR code count for
+     * @param iquery     an OnQRCodeLengthComplete listener to handle the result
+     * @return the number of QR codes associated with the player
+     */
     public int getQRCodesNum(String playerName, OnQRCodeLengthComplete iquery) {
         final int[] length = {0};
         db = FirebaseFirestore.getInstance();
@@ -273,6 +346,12 @@ public class DataBaseHelper {
         return length[0];
     }
 
+    /**
+     * Retrieves the geolocations of the QR code with the given hashcode.
+     *
+     * @param hashcode the hashcode of the QR code to retrieve the geolocations of
+     * @param iquery   an instance of OnGetQRCodeGeolocations that will be called upon completion of the retrieval
+     */
     public void getQRCodeGeolocations(String hashcode, OnGetQRCodeGeolocations iquery) {
         final HashMap<String,Double>[] geo = new HashMap[1];
         geo[0] = new HashMap<String,Double>();
@@ -301,6 +380,13 @@ public class DataBaseHelper {
         });
     }
 
+
+    /**
+
+     * Retrieves the hash codes of all QR codes belonging to a specific player.
+     * @param username the name of the player to retrieve the QR codes for
+     * @param iquery an instance of OnGetHashByUsernameListener to handle the results of the query
+     */
     public void getQRCodeByName_hash(String username, OnGetHashByUsernameListener iquery) {
         db = FirebaseFirestore.getInstance();
         CollectionReference playersRef = db.collection("Players");
@@ -325,6 +411,14 @@ public class DataBaseHelper {
                 });
     }
 
+    /**
+
+     * Retrieves the comments associated with a QR code identified by its hash code.
+
+     * @param hashcode The hash code of the QR code to retrieve comments for.
+
+     * @param iquery The callback interface to return the retrieved comments.
+     */
     public void getComments(String hashcode, OnGetCommentByHashListener iquery) {
         db = FirebaseFirestore.getInstance();
         CollectionReference playersRef = db.collection("QRCode");
@@ -353,6 +447,13 @@ public class DataBaseHelper {
                 });
     }
 
+    /**
+
+     * Retrieves a QR code by its hashcode and its associated comments.
+     * @param hashcode the hashcode of the QR code to retrieve.
+     * @param iquery the callback to handle the retrieved QR code.
+     * @throws NoSuchAlgorithmException if there is an error processing the comments.
+     */
     public void getQRCodeByName(String hashcode, OnGetQRCodeListener iquery) {
         db = FirebaseFirestore.getInstance();
         CollectionReference playersRef = db.collection("QRCode");
@@ -366,6 +467,14 @@ public class DataBaseHelper {
         });
 
     }
+    /**
+
+     * Retrieves an array of QR codes associated with a given username.
+
+     * @param username the username for which to retrieve the QR codes.
+
+     * @param iquery an instance of OnGetQRCodeNamesListener to be called upon successful completion of the retrieval.
+     */
     public void getQRCodesByName(String username, OnGetQRCodeNamesListener iquery) {
         DataBaseHelper helper = new DataBaseHelper();
         helper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
@@ -386,6 +495,11 @@ public class DataBaseHelper {
         });
     }
 
+    /**
+
+     * This method retrieves all QR codes stored in the Firestore database and passes them to the listener
+     * @param iquery An instance of OnGetAllQRCodeListener interface, which will receive the list of QR codes.
+     */
     public void getAllQRCode(OnGetAllQRCodeListener iquery){
         db = FirebaseFirestore.getInstance();
         CollectionReference collecRef = db.collection("QRCode");
