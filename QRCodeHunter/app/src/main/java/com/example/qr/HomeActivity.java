@@ -12,7 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
 
+
+
 public class HomeActivity extends AppCompatActivity {
+
+
 
     ImageButton searchBtn;
     @Override
