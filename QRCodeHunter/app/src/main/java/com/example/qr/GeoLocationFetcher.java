@@ -16,6 +16,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+/**
+ * A class that fetches the user's current location using the Google Play Services API.
+ * This class implements the GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+ * and com.google.android.gms.location.LocationListener interfaces to handle the callbacks for the
+ * Google Play Services API.
+ */
 public class GeoLocationFetcher extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener{
@@ -23,6 +29,11 @@ public class GeoLocationFetcher extends AppCompatActivity implements GoogleApiCl
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
+    /**
+     * Initializes the GeoLocationFetcher object and sets up the GoogleApiClient and LocationRequest objects.
+     *
+     * @param savedInstanceState the saved instance state bundle to restore the activity state from
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +53,11 @@ public class GeoLocationFetcher extends AppCompatActivity implements GoogleApiCl
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
     }
 
+    /**
+     * Called when the Google Play Services API connection is successful.
+     *
+     * @param bundle the connection result bundle
+     */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -53,16 +69,31 @@ public class GeoLocationFetcher extends AppCompatActivity implements GoogleApiCl
         }
     }
 
+    /**
+     * Called when the Google Play Services API connection is suspended.
+     *
+     * @param i the connection suspend cause
+     */
     @Override
     public void onConnectionSuspended(int i) {
 
     }
 
+    /**
+     * Called when the Google Play Services API connection fails.
+     *
+     * @param connectionResult the connection result indicating the reason for the failure
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
+    /**
+     * Called when the user's location changes.
+     *
+     * @param location the new location of the user
+     */
     @Override
     public void onLocationChanged(@NonNull Location location) {
         double latitude = location.getLatitude();

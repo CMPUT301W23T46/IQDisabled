@@ -36,12 +36,24 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
+/**
+ * The MapActivity class extends the AppCompatActivity class and is responsible for displaying
+ * the map which can show nearby QRCodes according to their geolocation.
+ */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener{
     private static final int REQUEST_LOCATION_PERMISSION = 1;
     private GoogleMap mMap;
 
     DataBaseHelper dbHelper = new DataBaseHelper();
     private FirebaseFirestore db;
+
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +137,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
+    /**
+     * handles the result of a permission request made by the app.
+     * @param requestCode The request code passed in {@link #requestPermissions(
+     * android.app.Activity, String[], int)}
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     *
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -137,6 +159,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * handles the actions for after the map has been initialized.
+     * @param googleMap
+     */
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -156,6 +182,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+    /**
+     * handles the actions when the map is clicked.
+     * @param latLng
+     */
     @Override
     public void onMapClick(LatLng latLng){
         double latitude = latLng.latitude;
