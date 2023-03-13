@@ -8,9 +8,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+/**
+ * Activity for uploading photos
+ */
 public class UploadPhotoActivity extends AppCompatActivity {
-
+    /**
+     * Called when the activity is created
+     * @param savedInstanceState the saved state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

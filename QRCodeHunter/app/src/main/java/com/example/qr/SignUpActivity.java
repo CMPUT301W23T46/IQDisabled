@@ -25,11 +25,17 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-
+/**
+ The SignUpActivity class is responsible for allowing the user to sign up for the application
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     Player player = new Player("","","");
-
+    /**
+     This method is called when the activity is first created.
+     It sets the content view and initializes the UI elements such as EditText and Button views.
+     @param savedInstanceState - a Bundle object containing data about the saved state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

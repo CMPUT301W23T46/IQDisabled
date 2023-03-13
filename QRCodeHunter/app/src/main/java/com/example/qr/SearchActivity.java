@@ -6,8 +6,16 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+/**
+ This class represents the SearchActivity that allows the user to search for other player profiles by name or QR code.
+ It extends AppCompatActivity class.
+ */
 public class SearchActivity extends AppCompatActivity {
+    /**
+     This method is called when the activity is created.
+     It initializes the activity view and sets click listeners for the search by name, search by code, and cancel buttons.
+     @param savedInstanceState saved instance state Bundle
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

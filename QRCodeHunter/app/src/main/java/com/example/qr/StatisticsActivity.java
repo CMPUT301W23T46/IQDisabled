@@ -6,9 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
+/**
+ * Activity for displaying statistics
+ */
 public class StatisticsActivity extends AppCompatActivity {
-
+    /**
+     * Called when the activity is created
+     * @param savedInstanceState the saved state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

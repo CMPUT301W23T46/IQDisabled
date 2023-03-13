@@ -61,7 +61,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
-
+/**
+ * This class represents an activity that displays information about a scanned QR code.
+ * It allows the user to take a picture, submit their location and comment, and store information about the QR code in a Firebase Cloud Firestore database.
+ */
 public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private PreviewView previewView;
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -73,7 +76,14 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
     private String hashCode;
 
     private int called_times;
-
+    /**
+     * This method is called when the activity is created.
+     * It sets up the Google API client for location services, creates a location request object,
+     * retrieves information about the scanned QR code from the previous activity,
+     * initializes UI elements, and sets up listeners for button clicks.
+     *
+     * @param savedInstanceState the saved instance state of the activity, or null if there is none
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +129,12 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         Button submit_btn = findViewById(R.id.submit_btn);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method is called when the back button is clicked.
+             * It finishes the current activity.
+             *
+             * @param v the view that was clicked
+             */
             @Override
             public void onClick(View v) {
                 ShowQRCodeActivity.this.finish();
@@ -214,7 +230,12 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         });
 
     }
+    /**
 
+     Checks if the app has necessary permission to read and write to external storage.
+     If the SDK version is above R, checks if the app has necessary permission to manage all files.
+     @return true if the app has the necessary permissions, false otherwise
+     */
     private boolean checkPermission() {
         if (SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager();
@@ -224,7 +245,11 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
         }
     }
+    /**
 
+     Requests necessary permissions to read and write to external storage.
+     If the SDK version is above R, opens the app's manage all files access settings page.
+     */
     private void requestPermission() {
         if (SDK_INT >= Build.VERSION_CODES.R) {
             try {
@@ -242,7 +267,13 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             ActivityCompat.requestPermissions(ShowQRCodeActivity.this, new String[]{WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
+    /**
 
+     Called when GoogleApiClient is connected.
+     Checks if the app has necessary permissions to access the device location.
+     If not, requests the permissions. If yes, requests location updates.
+     @param bundle The bundle passed to onCreate
+     */
     @Override
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -253,17 +284,30 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
     }
+    /**
+
+     Called when GoogleApiClient connection is suspended. Does nothing.
+     @param i The reason for the disconnection. Defined in GoogleApiClient.
+     */
 
     @Override
     public void onConnectionSuspended(int i) {
         // Do nothing
     }
-
+    /**
+     Called when GoogleApiClient connection fails. Does nothing.
+     @param connectionResult The result of the failed connection attempt. Defined in GoogleApiClient.
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // Do nothing
     }
+    /**
 
+     This method is called when the device's location changes. It updates the latitude and longitude
+     of the user's location and increments the number of times the method has been called.
+     @param location The new location of the device.
+     */
     @Override
     public void onLocationChanged(Location location) {
 
@@ -282,6 +326,12 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
+    /**
+     This method is called to take a photo using the device's camera. It first checks if the necessary
+     permissions have been granted and requests them if they have not. It then sets up the camera preview
+     and image capture use case. When the user clicks the capture button, it saves the captured image
+     to the device and uploads it to the Firebase database.
+     */
 
     public void take_Pic() {
         if (!checkPermission()) {
@@ -361,7 +411,10 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         upload(imageData);
     }
 
-
+    /**
+     Uploads the image data to Firebase Firestore.
+     @param imageData The byte array of the compressed image data.
+     */
     private void upload(byte[] imageData) {
         db = FirebaseFirestore.getInstance();
         CollectionReference collecRef = db.collection("QRCode");

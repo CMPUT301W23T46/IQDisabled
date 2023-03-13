@@ -13,9 +13,17 @@ import androidx.fragment.app.Fragment;
 
 import javax.annotation.Nullable;
 
+/**
+ A dialog fragment for searching players by code.
+ */
+
 public class SearchFragmentByName extends DialogFragment {
 
     Button searchByNameAddBtn, searchByNameCancelBtn;
+    /**
+     * This method is called when the fragment is started. It sets the width and height
+     * of the dialog window to 95% of the device's screen size.
+     */
 
     @Override
     public void onStart() {
@@ -25,6 +33,16 @@ public class SearchFragmentByName extends DialogFragment {
         getDialog().getWindow().setLayout(width,ViewGroup.LayoutParams.WRAP_CONTENT);
         getDialog().getWindow().setLayout(width,height);
     }
+    /**
+     * This method is called when the view is being created. It inflates the fragment's
+     * layout and initializes the UI components.
+     *
+     * @param inflater the LayoutInflater object used to inflate the layout
+     * @param container the ViewGroup object that contains the fragment
+     * @param savedInstanceState a Bundle object containing the saved state of the fragment
+     * @return the inflated View object representing the fragment's layout
+     */
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle

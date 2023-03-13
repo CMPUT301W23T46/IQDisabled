@@ -11,7 +11,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 
+/**
+
+ The ProfileActivity displays the user's profile information, which is retrieved from shared preferences
+ and displayed in the UI elements. It also sets up click listeners for the navigation buttons that will
+ take the user to other parts of the app.
+ */
+
 public class ProfileActivity extends AppCompatActivity {
+    /**
+     onCreate method is called when the activity is created. It sets the layout, retrieves the user's
+     profile information from shared preferences, and displays the information in the UI elements.
+     It also sets up click listeners for the navigation buttons.
+     @param savedInstanceState Bundle object containing the activity's previously saved state.
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

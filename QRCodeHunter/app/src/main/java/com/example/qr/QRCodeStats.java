@@ -6,14 +6,28 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ The QRCodeStats class contains methods for generating statistics and visual representation
+ of a QR code based on its SHA-256 hash value.
+ */
+
 public class QRCodeStats {
 
     private static String content;
 
+    /**
+     Constructs a new QRCodeStats object with the given content.
+     @param content the content of the QR code
+     */
     public QRCodeStats(String content) {
         this.content = content;
     }
 
+    /**
+     Generates the SHA-256 hash value of the QR code's content.
+     @return the hexadecimal representation of the hash value
+     @throws NoSuchAlgorithmException if SHA-256 is not a valid message digest algorithm
+     */
     public static String hashString() throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedHash = digest.digest(content.getBytes(StandardCharsets.UTF_8));
@@ -28,12 +42,22 @@ public class QRCodeStats {
         return hexString.toString();
     }
 
+    /**
+     Extracts the first six bits of the given hash value and returns them as a binary string.
+     @param hash the hexadecimal representation of the hash value
+     @return the binary string representation of the first six bits
+     */
     public static String extractFirstSix(String hash) {
         int firstSixBits = Integer.parseInt(hash.substring(0, 2), 16) >> 2;
         String firstSixBitsBinary = String.format("%6s", Integer.toBinaryString(firstSixBits)).replace(' ', '0');
         return firstSixBitsBinary;
     }
 
+    /**
+     Generates a naming convention for the QR code based on the first six bits of its hash value.
+     @param firstSixBits the binary string representation of the first six bits of the hash value
+     @return a naming convention for the QR code
+     */
     public static String naming(String firstSixBits) {
         int index = 0;
         String result = "";
@@ -94,6 +118,11 @@ public class QRCodeStats {
         return result;
     }
 
+    /**
+     * Calculates a score based on the number of consecutive repeated characters in a hexadecimal string.
+     * @param hexString a hexadecimal string to be scored
+     * @return the score calculated based on the number of consecutive repeated characters in the input string
+     */
     public static int scoring(String hexString) {
         List<String> repeatedCharsList = new ArrayList<>();
         char[] chars = hexString.toCharArray();
@@ -129,6 +158,11 @@ public class QRCodeStats {
         return result;
     }
 
+    /**
+     * Generates a visual representation of the first six bits of a hexadecimal string.
+     * @param firstSixBits the first six bits of a hexadecimal string to be represented visually
+     * @return a string representing the first six bits of the input hexadecimal string in a visual format
+     */
     public static String visualRep(String firstSixBits) {
         int index = 0;
         String[][] temp = new String[8][10];

@@ -11,9 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
+/**
+ The ShowOtherProfile class displays the profile information of another user
+ that was clicked on from a search result list. It receives information
+ about the user (name, email, phone) via an Intent from the previous activity
+ and displays it on the screen.
+ */
 
 public class ShowOtherProfile extends AppCompatActivity {
-
+    /**
+     * This method is called when the activity is starting up. It initializes
+     * the UI components and displays the profile information passed via Intent.
+     * @param savedInstanceState a Bundle object containing the activity's saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
