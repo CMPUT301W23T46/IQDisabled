@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#342B49"
+
+    >
+
+    <ImageButton
+        android:id="@+id/my_qr_info_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/upload_heading"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="21dp"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <TextView
+        android:id="@+id/upload_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/my_qr_info_back_btn"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="My QR Code Infomation"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="27sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="569dp"
+        android:layout_below="@+id/my_qr_info_back_btn"
+        android:layout_marginBottom="80dp"
+        android:background="#77F1E8FF">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="240dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:id="@+id/my_qr_image"
+            android:src="@drawable/photo">
+
+        </ImageView>
+
+
+        <TextView
+            android:id="@+id/my_qr_username_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="360dp"
+            android:text="Username: "
+            android:textColor="@color/black"
+            android:textSize="22sp"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_qr_username"
+            android:text="My Username"
+            android:textSize="22sp"
+            android:layout_toEndOf="@id/my_qr_username_text"
+            android:textColor="@color/black"
+            android:layout_marginTop="360dp"
+            android:layout_marginLeft="30dp">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_qr_score_text"
+            android:text="Score: "
+            android:textSize="22sp"
+            android:layout_below="@id/my_qr_username_text"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:layout_alignRight="@id/my_qr_username_text"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_qr_score"
+            android:text="My score"
+            android:textSize="22sp"
+            android:layout_toEndOf="@id/my_qr_score_text"
+            android:layout_below="@id/my_qr_username"
+            android:layout_alignLeft="@id/my_qr_username"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp">
+        </TextView>
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
