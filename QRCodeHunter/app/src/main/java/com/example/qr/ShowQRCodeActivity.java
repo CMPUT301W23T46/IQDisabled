@@ -167,6 +167,8 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                             @Override
                             public void onSuccess(Void unused) {
                                 Log.d(TAG,"Success");
+                                DataBaseHelper dbhelper = new DataBaseHelper();
+                                dbhelper.qrcode_add_comment(qr,edt_comment.getText().toString());
                                 Intent intent1 = new Intent(ShowQRCodeActivity.this,HomeActivity.class);
                                 startActivity(intent1);
                             }
@@ -196,6 +198,8 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                         @Override
                         public void onSuccess(Void unused) {
                             Log.d(TAG,"Success");
+                            DataBaseHelper dbhelper = new DataBaseHelper();
+                            dbhelper.qrcode_add_comment(qr,edt_comment.getText().toString());
                             Intent intent1 = new Intent(ShowQRCodeActivity.this,HomeActivity.class);
                             startActivity(intent1);
                         }
@@ -274,7 +278,6 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         ShowQRCodeActivity.this.longitude = location.getLongitude();
         System.out.println(this.longitude+this.latitude);
         EditText edx = findViewById(R.id.edit_comment);
-        System.out.println(edx.getText().toString());
         //TODO: Submit to database
 
     }
