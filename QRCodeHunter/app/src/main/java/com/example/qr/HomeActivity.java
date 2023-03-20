@@ -50,7 +50,15 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+        DataBaseHelper dbhelper = new DataBaseHelper();
+//        Integer score = dbhelper.getQRcodeScore("2f0eb1859e295bcd183127558f3c205270e7a8004ad362e5123bd5b2774e0f9c");
 
+        dbhelper.getQRcodeScore("2f0eb1859e295bcd183127558f3c205270e7a8004ad362e5123bd5b2774e0f9c", new OnGetQRCodeScoreListener() {
+            @Override
+            public void onSuccess(Integer score) {
+                Toast.makeText(HomeActivity.this, score.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 //        Toast.makeText(this, player1.getEmail()+player1.getPhone_number(), Toast.LENGTH_SHORT).show();

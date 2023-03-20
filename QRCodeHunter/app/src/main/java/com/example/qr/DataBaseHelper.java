@@ -523,5 +523,25 @@ public class DataBaseHelper {
         });
     }
 
+    public void getQRcodeScore(String hashcode, OnGetQRCodeScoreListener iquery) {
+        db = FirebaseFirestore.getInstance();
+
+        CollectionReference collectionReference = db.collection("QRCode");
+        final Map<String, Object>[] result = new Map[1];
+        result[0] = new HashMap<String,Object>();
+        collectionReference.document(hashcode).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        result[0] = document.getData();
+                        String score_str = result[0].get("score").toString();
+                        Integer score_int = Integer.parseInt(score_str);
+                        iquery.onSuccess(score_int);
+                    }
+            }
+        }});
+    }
 
 }
