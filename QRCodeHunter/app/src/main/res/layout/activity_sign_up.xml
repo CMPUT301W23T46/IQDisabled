@@ -40,17 +40,9 @@
             android:id="@+id/edit_user_name"
             android:backgroundTint="@color/white"
             />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:id="@+id/edit_user_pass"
-            android:textColorHint="@color/white"
-            android:textSize="20dp"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/white"
 
-            />
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

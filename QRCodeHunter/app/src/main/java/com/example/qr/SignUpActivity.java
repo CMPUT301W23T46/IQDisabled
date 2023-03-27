@@ -42,7 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         EditText username = findViewById(R.id.edit_user_name);
-        EditText password = findViewById(R.id.edit_user_pass);
         EditText email = findViewById(R.id.edit_email);
         EditText phoneNum = findViewById(R.id.edit_phone_number);
 
@@ -60,7 +59,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String usernameString = username.getText().toString();
-                String passwordString = password.getText().toString();
                 String emailString = email.getText().toString();
                 String phoneString = phoneNum.getText().toString();
 
@@ -84,7 +82,6 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "The user name exists, please try other names", Toast.LENGTH_SHORT).show();
                         } else {
                             editor.putString("username",usernameString);
-                            editor.putString("password",passwordString);
                             editor.putString("email",emailString);
                             editor.putString("phone",phoneString);
                             editor.putBoolean("loggedIn", true);
