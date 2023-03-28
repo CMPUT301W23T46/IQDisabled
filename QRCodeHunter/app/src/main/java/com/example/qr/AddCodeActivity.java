@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.transform.Result;
 /**
- * The AddCodeActivity class is responsible for scanning QR codes and displaying the results.
+ * The AddCodeActivity class is responsible for scanning QR codes and displaying the results .
  */
 public class AddCodeActivity extends AppCompatActivity {
     String result;
