@@ -18,7 +18,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 /**
@@ -542,6 +544,43 @@ public class DataBaseHelper {
                     }
             }
         }});
+    }
+
+    /**
+     * this method retrieve all player objects passes to listener
+     * @param iquery An instance of OnGetAllPlayerListener interface, which store the list of all player objects.
+     */
+
+    public void getAllPlayer(OnGetAllPlayerListener iquery) {
+
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef = db.collection("Players");
+        collecRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                List<Player> playerList = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    // Get the data of each document and convert to Player object
+                    Player player = new Player(
+                            documentSnapshot.getString("playName"),
+                            documentSnapshot.getString("email"),
+                            documentSnapshot.getString("phone_number")
+                    );
+                    playerList.add(player);
+                }
+
+                // Convert the List to an array of Players and pass to listener
+                Player[] result = playerList.toArray(new Player[playerList.size()]);
+                iquery.success(result);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Failed to retrieve Players", e);
+                iquery.failure(e);
+            }
+        });
     }
 
 }

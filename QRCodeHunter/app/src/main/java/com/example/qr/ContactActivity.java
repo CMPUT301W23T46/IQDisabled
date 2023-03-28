@@ -3,10 +3,17 @@ package com.example.qr;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.lang.reflect.Array;
 
 /**
  * The ContactActivity class extends the AppCompatActivity class and is responsible for displaying
@@ -15,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * profile screen, and add code screen.
  */
 public class ContactActivity extends AppCompatActivity {
+    private static final String TAG = "ContactACtivity";
     /**
      * Called when the activity is starting. Retrieves the user's contact information from shared preferences
      * and sets up click listeners for navigation buttons to the home screen, map screen, profile screen,
@@ -26,6 +34,7 @@ public class ContactActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
@@ -39,6 +48,27 @@ public class ContactActivity extends AppCompatActivity {
         ImageButton addBtn = findViewById(R.id.add_btn);
         ImageButton mapBtn = findViewById(R.id.map_btn);
         ImageButton profileBtn = findViewById(R.id.profile_btn);
+
+        ListView playerListView = findViewById(R.id.contact_player_list);
+
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        dbhelper.getAllPlayer(new OnGetAllPlayerListener() {
+            @Override
+            public void success(Player[] players) {
+
+                PlayerArrayAdapter adapter = new PlayerArrayAdapter(ContactActivity.this, players);
+                playerListView.setAdapter(adapter);
+            }
+
+            @Override
+            public void failure(Exception e) {
+                Log.e(TAG, "Error retrieving players from database", e);
+                Toast.makeText(ContactActivity.this, "Failed to retrieve player data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
 
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
