@@ -45,8 +45,6 @@
             android:src="@drawable/photo">
 
         </ImageView>
-
-
         <TextView
             android:id="@+id/my_qr_username_text"
             android:layout_width="wrap_content"
@@ -96,13 +94,7 @@
             android:layout_marginTop="20dp">
         </TextView>
 
-
-
-
-
-
     </RelativeLayout>
-
 
 
 </RelativeLayout>

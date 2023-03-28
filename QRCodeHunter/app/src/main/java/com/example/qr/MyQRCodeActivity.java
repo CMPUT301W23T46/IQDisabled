@@ -5,9 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The MyQRCodeActivity class extends the AppCompatActivity class and is responsible for displaying the qrcodes I have
@@ -58,8 +70,36 @@ public class MyQRCodeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("Players").document("Felix").collection("QRCode");
 
+        collectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String> documentNames = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    String documentName = documentSnapshot.getId();
+                    documentNames.add(documentName);
+                }
 
+                // Find the ListView on your app's page
+                ListView listView = findViewById(R.id.myqrcode);
 
+                // Create an ArrayAdapter to display the document names in the ListView
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MyQRCodeActivity.this, android.R.layout.simple_list_item_1, documentNames);
+
+                // Set the ArrayAdapter as the ListView's adapter
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedQRCodeName = (String) parent.getItemAtPosition(position);
+                        Intent intent = new Intent(MyQRCodeActivity.this, QRCodeDetailActivity.class);
+                        intent.putExtra("QRCodeName", selectedQRCodeName);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
     }
 }
