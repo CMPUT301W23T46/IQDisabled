@@ -9,5 +9,5 @@ public interface OnGetHashByUsernameListener {
      *
      * @param hashcodes an array of String objects representing the hashcodes for the given username
      */
-    void onSuccess(String[] hashcodes);
+    void onSuccess(String[] hashcodes) throws InterruptedException;
 }
