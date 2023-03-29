@@ -32,14 +32,11 @@ public class ShowOtherProfile extends AppCompatActivity {
         Intent intent = getIntent();
 
         String username = intent.getStringExtra("name");
-        String email = intent.getStringExtra("email");
-        String phone = intent.getStringExtra("phone");
-        TextView tw = findViewById(R.id.e_phone_number);
-        TextView tw2 = findViewById(R.id.e_email_address);
+
+
         TextView tw3 = findViewById(R.id.e_user_name);
 
-        tw.setText(phone);
-        tw2.setText(email);
+
         tw3.setText(username);
 
         Button back_btn = findViewById(R.id.go_back_btn);
