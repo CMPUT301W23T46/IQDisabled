@@ -115,6 +115,8 @@ public class ProfileActivity extends AppCompatActivity {
             public void onSuccess(String[] hashcodes) throws InterruptedException {
                 // Declare an ArrayList to store the scores
                 List<Integer> scoresList = new ArrayList<>();
+                TextView num_scan = findViewById(R.id.num_scan);
+                num_scan.setText(String.valueOf(hashcodes.length));
 
                 // Iterate through the hashcodes and retrieve the scores
                 for (String hashcode : hashcodes) {
