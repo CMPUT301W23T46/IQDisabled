@@ -3,6 +3,7 @@ package com.example.qr;
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -313,12 +314,14 @@ public class DataBaseHelper {
                     if (document.exists()) {
                         result[0] = document.getData();
                         player.setPlayName(playerName);
-                        player.setPhone_number(result[0].get("phone").toString());
-                        player.setEmail(result[0].get("email").toString());
+//                        player.setPhone_number(result[0].get("phone").toString());
+//                        player.setEmail(result[0].get("email").toString());
                         Log.d(TAG, "Completed");
                         iquery.onSuccess(player);
                     } else {
                         Log.d(TAG, "No such document");
+
+
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
