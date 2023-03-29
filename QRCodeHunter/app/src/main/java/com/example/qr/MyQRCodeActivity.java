@@ -121,5 +121,21 @@ public class MyQRCodeActivity extends AppCompatActivity {
                         }
                     }
                 });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String select = documentNames.get(position);
+                data.remove(position);
+                RemoveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view){
+                        adapter.notifyDataSetChanged();
+                        db.collection("Players").document(username).collection("QRCode").document(select)
+                                .delete();
+
+                    }
+                });
+                }
+        });
     }
 }
