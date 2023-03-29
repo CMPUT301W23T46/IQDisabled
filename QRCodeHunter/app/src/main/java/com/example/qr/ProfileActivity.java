@@ -134,6 +134,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 TextView lowest = findViewById(R.id.lowest_score);
                                 highest.setText(String.valueOf(scoresArray[0]));
                                 lowest.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                                int sumUp = 0;
+                                for (int s: scoresArray) {
+                                    sumUp+=s;
+                                }
+                                TextView scoreSum = findViewById(R.id.score_sum);
+                                scoreSum.setText(String.valueOf(sumUp));
                             }
                         }
                     });
