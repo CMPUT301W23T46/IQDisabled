@@ -110,14 +110,40 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        dbhelper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) throws InterruptedException {
+                // Declare an ArrayList to store the scores
+                List<Integer> scoresList = new ArrayList<>();
+
+                // Iterate through the hashcodes and retrieve the scores
+                for (String hashcode : hashcodes) {
+                    dbhelper.getQRcodeScore(hashcode, new OnGetQRCodeScoreListener() {
+                        @Override
+                        public void onSuccess(Integer score) {
+                            // Add the score to the scoresList
+                            scoresList.add(score);
+
+                            // Check if all the scores have been retrieved
+                            if (scoresList.size() == hashcodes.length) {
+                                // All scores have been retrieved, do something with them
+                                int[] scoresArray = scoresList.stream().mapToInt(Integer::intValue).toArray();
+                                // Call a method that depends on scoresArray
+                                Arrays.sort(scoresArray);
+                                TextView highest = findViewById(R.id.highest_score);
+                                TextView lowest = findViewById(R.id.lowest_score);
+                                highest.setText(String.valueOf(scoresArray[0]));
+                                lowest.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
 
 
-        //                Arrays.sort(scores[0]);
-//                TextView highest = findViewById(R.id.highest_score);
-//                TextView lowest = findViewById(R.id.lowest_score);
-//                highest.setText(String.valueOf(scores[0][0]));
-//                highest.setText(String.valueOf(scores[0][index[0] -1]));
+
     }
 
 }
