@@ -31,7 +31,7 @@
         android:background="#77F1E8FF">
 
         <ListView
-            android:id ="@+id/myqrcode"
+            android:id ="@+id/qrcodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
