@@ -3,6 +3,7 @@ package com.example.qr;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -70,8 +71,10 @@ public class MyQRCodeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        String username = sharedPref.getString("username","N/A");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection("Players").document("Felix").collection("QRCode");
+        CollectionReference collectionRef = db.collection("Players").document(username).collection("QRCode");
 
         collectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
