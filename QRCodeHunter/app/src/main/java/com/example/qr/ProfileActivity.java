@@ -6,10 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
 
@@ -81,5 +86,38 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView tw = findViewById(R.id.contact_information_text);
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        dbhelper.getAllQRCode(new OnGetAllQRCodeListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) {
+                List<Integer> scoresList = new ArrayList<>();
+                for (String hashcode : hashcodes) {
+                    dbhelper.getQRcodeScore(hashcode, new OnGetQRCodeScoreListener() {
+                        @Override
+                        public void onSuccess(Integer score) {
+                            scoresList.add(score);
+                            if (scoresList.size() == hashcodes.length) {
+                                int[] scoresArray = scoresList.stream().mapToInt(Integer::intValue).toArray();
+                                Arrays.sort(scoresArray);
+                                TextView game_wide = findViewById(R.id.game_wide);
+                                game_wide.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+
+
+
+        //                Arrays.sort(scores[0]);
+//                TextView highest = findViewById(R.id.highest_score);
+//                TextView lowest = findViewById(R.id.lowest_score);
+//                highest.setText(String.valueOf(scores[0][0]));
+//                highest.setText(String.valueOf(scores[0][index[0] -1]));
     }
+
 }
