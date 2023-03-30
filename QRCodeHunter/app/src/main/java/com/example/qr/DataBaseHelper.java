@@ -405,7 +405,11 @@ public class DataBaseHelper {
                             documentNames[i] = documentSnapshot.getId();
                             i++;
                         }
-                        iquery.onSuccess(documentNames);
+                        try {
+                            iquery.onSuccess(documentNames);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -585,5 +589,10 @@ public class DataBaseHelper {
             }
         });
     }
+
+//    public void getHighestScore() {
+//        db = FirebaseFirestore.getInstance();
+////        CollectionReference collectionReference = db.collection();
+//    }
 
 }
