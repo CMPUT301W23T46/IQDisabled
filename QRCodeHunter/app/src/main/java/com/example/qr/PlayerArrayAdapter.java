@@ -1,13 +1,14 @@
 package com.example.qr;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PlayerArrayAdapter extends ArrayAdapter<Player> {
     private final Context context;
@@ -33,7 +34,9 @@ public class PlayerArrayAdapter extends ArrayAdapter<Player> {
         viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, playerList[p].getPlayName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PlayerCodeActivity.class);
+                intent.putExtra("name", playerList[p].getPlayName());
+                context.startActivity(intent);
             }
         });
 

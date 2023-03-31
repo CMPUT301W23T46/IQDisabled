@@ -147,7 +147,6 @@ public class DataBaseHelper {
     }
 
     /**
-
      * Adds a new QRCode to the Firestore database and stores its associated information, including score, location and comments.
      * @param qrCode The QRCode object to be stored.
      * @param latitude The latitude coordinate of the QRCode's location.
@@ -195,7 +194,6 @@ public class DataBaseHelper {
     }
 
     /**
-
      * Adds a QR code to a player's collection of QR codes in the database.
 
      * @param player The player to add the QR code to.
@@ -247,7 +245,6 @@ public class DataBaseHelper {
 
 
     /**
-
      * Deletes a player's data from the database.
      * @param player the Player object representing the player whose data will be deleted
      */
@@ -268,7 +265,6 @@ public class DataBaseHelper {
     }
 
     /**
-
      * This method deletes the specified QR code from the player's collection of QR codes in the Firestore database.
      * @param player the player object whose collection of QR codes will be updated
      * @param qrCode the QR code object to be deleted from the player's collection
@@ -384,7 +380,6 @@ public class DataBaseHelper {
 
 
     /**
-
      * Retrieves the hash codes of all QR codes belonging to a specific player.
      * @param username the name of the player to retrieve the QR codes for
      * @param iquery an instance of OnGetHashByUsernameListener to handle the results of the query
@@ -414,7 +409,6 @@ public class DataBaseHelper {
     }
 
     /**
-
      * Retrieves the comments associated with a QR code identified by its hash code.
 
      * @param hashcode The hash code of the QR code to retrieve comments for.
@@ -450,7 +444,6 @@ public class DataBaseHelper {
     }
 
     /**
-
      * Retrieves a QR code by its hashcode and its associated comments.
      * @param hashcode the hashcode of the QR code to retrieve.
      * @param iquery the callback to handle the retrieved QR code.
@@ -470,7 +463,6 @@ public class DataBaseHelper {
 
     }
     /**
-
      * Retrieves an array of QR codes associated with a given username.
 
      * @param username the username for which to retrieve the QR codes.
@@ -498,7 +490,6 @@ public class DataBaseHelper {
     }
 
     /**
-
      * This method retrieves all QR codes stored in the Firestore database and passes them to the listener
      * @param iquery An instance of OnGetAllQRCodeListener interface, which will receive the list of QR codes.
      */
@@ -559,11 +550,6 @@ public class DataBaseHelper {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-
-
-
-
-
                 List<Player> playerList = new ArrayList<>();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     // Get the data of each document and convert to Player object
@@ -588,4 +574,41 @@ public class DataBaseHelper {
         });
     }
 
+    /**
+     * this method retrieve a list of QRcode name as String by player name passes to listener
+     * @param iquery An instance of OnGetPlayerQRCodesListener interface, which store the list of all player objects.
+     * @param playerName player's name to be searched
+     */
+    public void getPlayerQRCodes(String playerName, OnGetPlayerQRCodesListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_player = db.collection("Players").document(playerName).collection("QRCode");
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_player.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String>  player_qr_list = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    player_qr_list.add(documentSnapshot.getId());
+                }
+
+                collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<String> qr_list = new ArrayList<>();
+
+                        for (int i = 0; i < player_qr_list.size(); i++) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                if (player_qr_list.get(i).equals(documentSnapshot.getId())) {
+                                    qr_list.add(documentSnapshot.getString("qrcodeName"));
+                                }
+                            }
+                        }
+
+                        iquery.success(qr_list);
+                    }
+                });
+            }
+        });
+    }
 }
