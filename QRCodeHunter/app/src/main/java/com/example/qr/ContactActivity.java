@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -13,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * The ContactActivity class extends the AppCompatActivity class and is responsible for displaying
@@ -52,21 +55,19 @@ public class ContactActivity extends AppCompatActivity {
         ListView playerListView = findViewById(R.id.contact_player_list);
 
         DataBaseHelper dbhelper = new DataBaseHelper();
+
         dbhelper.getAllPlayer(new OnGetAllPlayerListener() {
             @Override
             public void success(Player[] players) {
-
                 PlayerArrayAdapter adapter = new PlayerArrayAdapter(ContactActivity.this, players);
                 playerListView.setAdapter(adapter);
             }
-
             @Override
             public void failure(Exception e) {
                 Log.e(TAG, "Error retrieving players from database", e);
                 Toast.makeText(ContactActivity.this, "Failed to retrieve player data", Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
 
