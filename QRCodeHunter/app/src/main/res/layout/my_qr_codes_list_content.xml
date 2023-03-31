@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="5dp"
+    android:background="#8AF1E8FF">
+
+    <TextView
+        android:id="@+id/qr_codes_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="Qrcode Name"
+        android:textSize="22sp"></TextView>
+
+    <TextView
+        android:id="@+id/view_score"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/contact_view_btn"
+        android:fontFamily="casual"
+        android:gravity="center"
+
+        android:includeFontPadding="false"
+        android:text="view score"
+        android:textSize="22sp">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/contact_view_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="#37F1E8FF"
+        android:src="?android:attr/actionModeWebSearchDrawable"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+
+</RelativeLayout>

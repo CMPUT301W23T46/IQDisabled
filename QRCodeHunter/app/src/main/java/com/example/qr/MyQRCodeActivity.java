@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,7 +39,7 @@ import java.util.List;
  * added to my account.
  */
 public class MyQRCodeActivity extends AppCompatActivity {
-    ArrayAdapter<String> adapter;
+    ArrayAdapter adapter;
     List<String> data = new ArrayList<>();
 
     /**
@@ -54,6 +55,10 @@ public class MyQRCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcodes);
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        String username = sharedPref.getString("username","N/A");
+        String email = sharedPref.getString("email","N/A");
+        String phone = sharedPref.getString("phone","N/A");
         Button statisticsButton = findViewById(R.id.bottom_button_1);
         Button RankingButton = findViewById(R.id.bottom_button_2);
         Button RemoveButton = findViewById(R.id.bottom_button_3);
@@ -61,8 +66,28 @@ public class MyQRCodeActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.qrcodes);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         listView.setAdapter(adapter);
+        ListView qrCodeListView = findViewById(R.id.qrcodes);
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        dbhelper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) {
+                List<QRCode> qrCodeList = new ArrayList<>();
+                for (String hash: hashcodes) {
+                    dbhelper.getQRCodeByName(hash, new OnGetQRCodeListener() {
+                        @Override
+                        public void onSuccess(QRCode qrCode) {
+                            qrCodeList.add(qrCode);
+                            QrCodesArrayAdapter adapter = new QrCodesArrayAdapter(MyQRCodeActivity.this, qrCodeList);
+                            listView.setAdapter(adapter);
+                            if (qrCodeList.size() == hashcodes.length) {
+                                System.out.println(qrCodeList.get(0).getQrcodeName());
 
-
+                            }
+                        }
+                    });
+                }
+            }
+        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +111,6 @@ public class MyQRCodeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-        String username = sharedPref.getString("username","N/A");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<String> documentNames = new ArrayList<>();
         CollectionReference myqrcode = db.collection("Players").document(username).collection("QRCode");

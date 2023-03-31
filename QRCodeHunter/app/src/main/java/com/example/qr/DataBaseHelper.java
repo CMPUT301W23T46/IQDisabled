@@ -406,6 +406,7 @@ public class DataBaseHelper {
                             i++;
                         }
                         iquery.onSuccess(documentNames);
+                        Log.w(TAG,"document name is"+ documentNames);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -585,5 +586,33 @@ public class DataBaseHelper {
             }
         });
     }
+    public void getMyCode(OnGetMyCodeListener iquery) {
 
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef = db.collection("Players");
+        collecRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                List<QRCode> qrCodeList = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    // Get the data of each document and convert to Player object
+                    QRCode qrCode = new QRCode(
+                            documentSnapshot.getString("qrcodeName"));
+
+                    qrCodeList.add(qrCode);
+                }
+
+                // Convert the List to an array of Players and pass to listener
+                QRCode[] result = qrCodeList.toArray(new QRCode[qrCodeList.size()]);
+                iquery.success(result);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Failed to retrieve Qrcodes", e);
+                iquery.failure(e);
+            }
+        });
+    }
 }
