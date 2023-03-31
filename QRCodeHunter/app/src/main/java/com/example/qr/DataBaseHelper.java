@@ -604,7 +604,6 @@ public class DataBaseHelper {
                                 }
                             }
                         }
-
                         iquery.success(qr_list);
                     }
                 });
