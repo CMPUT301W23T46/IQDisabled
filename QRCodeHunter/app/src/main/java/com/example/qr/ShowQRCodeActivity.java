@@ -56,8 +56,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -138,6 +142,44 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        dbhelper.getAllQRCode(new OnGetAllQRCodeListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) {
+                List<Integer> scoresList = new ArrayList<>();
+                for (String hashcode : hashcodes) {
+                    dbhelper.getQRcodeScore(hashcode, new OnGetQRCodeScoreListener() {
+                        @Override
+                        public void onSuccess(Integer score_a) {
+                            scoresList.add(score_a);
+                            if (scoresList.size() == hashcodes.length) {
+                                int[] scoresArray = scoresList.stream().mapToInt(Integer::intValue).toArray();
+                                Arrays.sort(scoresArray);
+                                Integer[] temp = Arrays.stream(scoresArray).boxed().toArray(Integer[]::new);
+                                Arrays.sort(temp, Collections.reverseOrder());
+                                scoresArray = Arrays.stream(temp).mapToInt(Integer::valueOf).toArray();
+                                for (int c: scoresArray) {
+                                    System.out.print(c+",,");
+                                }
+                                int j;
+                                for (j = scoresArray.length-1; j >0; j--) {
+                                    if (score < scoresArray[scoresArray.length-1]) {
+                                        j = scoresArray.length;
+                                        break;
+                                    }
+                                    if (scoresArray[j-1]>score && scoresArray[j]<=score) {
+                                        break;
+                                    }
+                                }
+                                j+=1;
+                                TextView score_rank = findViewById(R.id.est_rank);
+                                score_rank.setText(String.valueOf(j));
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
 
         visual_rep.setText(visualRep);
