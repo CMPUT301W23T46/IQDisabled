@@ -402,7 +402,11 @@ public class DataBaseHelper {
                             documentNames[i] = documentSnapshot.getId();
                             i++;
                         }
-                        iquery.onSuccess(documentNames);
+                        try {
+                            iquery.onSuccess(documentNames);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -584,6 +588,44 @@ public class DataBaseHelper {
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "Failed to retrieve Players", e);
                 iquery.failure(e);
+            }
+        });
+    }
+
+    /**
+     * this method retrieve a list of QRcode name as String by player name passes to listener
+     * @param iquery An instance of OnGetPlayerQRCodesListener interface, which store the list of all player objects.
+     * @param playerName player's name to be searched
+     */
+    public void getPlayerQRCodes(String playerName, OnGetPlayerQRCodesListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_player = db.collection("Players").document(playerName).collection("QRCode");
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_player.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String>  player_qr_list = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    player_qr_list.add(documentSnapshot.getId());
+                }
+
+                collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<String> qr_list = new ArrayList<>();
+
+                        for (int i = 0; i < player_qr_list.size(); i++) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                if (player_qr_list.get(i).equals(documentSnapshot.getId())) {
+                                    qr_list.add(documentSnapshot.getString("qrcodeName"));
+                                }
+                            }
+                        }
+
+                        iquery.success(qr_list);
+                    }
+                });
             }
         });
     }
