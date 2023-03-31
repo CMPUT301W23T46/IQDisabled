@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0247cb99-a33e-423a-88ed-b050ae1dffd9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/QRCodeHunter/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/QRCodeHunter/app/src/main/java/com/example/qr/MyQRCodeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/QRCodeHunter/app/src/main/java/com/example/qr/MyQRCodeActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="0247cb99-a33e-423a-88ed-b050ae1dffd9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

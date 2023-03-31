@@ -90,6 +90,48 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scanned by others? "
+            android:textColor="@color/white"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/scan_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="fillable"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimate Ranking"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/est_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="fillable"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/button_view_include"
@@ -117,17 +159,6 @@
         android:layout_margin="20dp"
         android:layout_height="wrap_content"
         android:text="Record Geolocation" />
-    <Button
-        android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/take_pic_btn"
-        android:layout_margin="20dp"
-        android:background="@color/gray"
-        android:text="Take Picture"
-        android:textSize="25dp"
-        android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"/>
 
 
     <LinearLayout
@@ -141,11 +172,22 @@
             android:layout_width="wrap_content"
             android:padding="5dp"
             android:layout_height="wrap_content"
-            android:id="@+id/back_btn"
+            android:id="@+id/take_pic_btn"
             android:layout_margin="20dp"
             android:background="@color/gray"
+            android:text="Take Picture"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_btn"
+            android:layout_margin="5dp"
+            android:background="@color/gray"
             android:text="Back"
-            android:textSize="25dp"
+            android:textSize="15dp"
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"/>
         <Button
@@ -156,7 +198,7 @@
             android:id="@+id/submit_btn"
             android:background="@color/gray"
             android:text="Submit"
-            android:textSize="25dp"
+            android:textSize="15dp"
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"/>
 

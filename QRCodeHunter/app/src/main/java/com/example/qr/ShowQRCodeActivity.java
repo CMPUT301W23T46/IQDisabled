@@ -119,6 +119,27 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         tw_score.setText(score.toString());
         System.out.println(visualRep);
 
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        try {
+            dbhelper.checkQRCodeExist(hashCode, new OnCheckQRCodeExistListener() {
+                @Override
+                public void onSuccess(boolean result) {
+                    TextView scanned_before = findViewById(R.id.scan_before);
+                    String yes_string = "Yes";
+                    String no_string = "No";
+                    scanned_before.setText(result?yes_string:no_string);
+                    if (!result) {
+                        Toast.makeText(ShowQRCodeActivity.this, "Great job! This one hasn't been scanned!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
         visual_rep.setText(visualRep);
         qrcode_name.setText(name);
 
