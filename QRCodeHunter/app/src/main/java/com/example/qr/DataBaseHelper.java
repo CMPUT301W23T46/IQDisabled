@@ -566,11 +566,16 @@ public class DataBaseHelper {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+
+
+
+
+
                 List<Player> playerList = new ArrayList<>();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     // Get the data of each document and convert to Player object
                     Player player = new Player(
-                            documentSnapshot.getString("playName"),
+                            documentSnapshot.getId(),
                             documentSnapshot.getString("email"),
                             documentSnapshot.getString("phone_number")
                     );

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:layout_margin="5dp"
-    android:background="#8AF1E8FF">
+    android:background="#8AF1E8FF"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="true">
 
     <TextView
         android:id="@+id/contact_player_name"
@@ -12,32 +14,29 @@
         android:layout_marginLeft="15dp"
         android:gravity="center"
         android:text="Player name"
-        android:textSize="22sp"></TextView>
+        android:textSize="22sp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
-    <TextView
-        android:id="@+id/contact_view_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_toStartOf="@id/contact_view_btn"
-        android:fontFamily="casual"
-        android:gravity="center"
-
-        android:includeFontPadding="false"
-        android:text="view score"
-        android:textSize="22sp">
-
-    </TextView>
-
-    <ImageButton
+    <Button
         android:id="@+id/contact_view_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="center"
         android:layout_alignParentEnd="true"
-        android:background="#37F1E8FF"
-        android:src="?android:attr/actionModeWebSearchDrawable"
+
+        android:clickable="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:includeFontPadding="false"
+        android:text="View QR Code"
+        android:textSize="18sp">
+
+    </Button>
+
+
 
 
 </RelativeLayout>
