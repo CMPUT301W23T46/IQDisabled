@@ -3,7 +3,6 @@ package com.example.qr;
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -314,14 +314,12 @@ public class DataBaseHelper {
                     if (document.exists()) {
                         result[0] = document.getData();
                         player.setPlayName(playerName);
-//                        player.setPhone_number(result[0].get("phone").toString());
-//                        player.setEmail(result[0].get("email").toString());
+                        player.setPhone_number(result[0].get("phone").toString());
+                        player.setEmail(result[0].get("email").toString());
                         Log.d(TAG, "Completed");
                         iquery.onSuccess(player);
                     } else {
                         Log.d(TAG, "No such document");
-
-
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
@@ -566,11 +564,16 @@ public class DataBaseHelper {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+
+
+
+
+
                 List<Player> playerList = new ArrayList<>();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     // Get the data of each document and convert to Player object
                     Player player = new Player(
-                            documentSnapshot.getString("playName"),
+                            documentSnapshot.getId(),
                             documentSnapshot.getString("email"),
                             documentSnapshot.getString("phone_number")
                     );
@@ -590,9 +593,125 @@ public class DataBaseHelper {
         });
     }
 
-//    public void getHighestScore() {
-//        db = FirebaseFirestore.getInstance();
-////        CollectionReference collectionReference = db.collection();
-//    }
+    /**
+     * this method retrieve a list of QRcode name as String by player name passes to listener
+     * @param iquery An instance of OnGetPlayerQRCodesListener interface, which store the list of all player objects.
+     * @param playerName player's name to be searched
+     */
+    public void getPlayerQRCodes(String playerName, OnGetPlayerQRCodesListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_player = db.collection("Players").document(playerName).collection("QRCode");
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_player.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String>  player_qr_list = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    player_qr_list.add(documentSnapshot.getId());
+                }
+
+                collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<String> qr_list = new ArrayList<>();
+
+                        for (int i = 0; i < player_qr_list.size(); i++) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                if (player_qr_list.get(i).equals(documentSnapshot.getId())) {
+                                    qr_list.add(documentSnapshot.getString("qrcodeName"));
+                                }
+                            }
+                        }
+
+                        iquery.success(qr_list);
+                    }
+                });
+            }
+        });
+    }
+
+
+    /**
+     * this method retrieve a list of QRcode rep as String by qr name passes to listener
+     * @param iquery An instance of OnGetPlayerQRCodesListener interface, which store the list of all player objects.
+     * @param qrName qr's name to be searched
+     */
+    public void getQRRepByName(String qrName, OnGetQRRepListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String> result = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    if (documentSnapshot.getString("qrcodeName").equals(qrName)){
+                        result.add(documentSnapshot.getString("visual_rep"));
+                    }
+                }
+                iquery.success(Collections.singletonList(result.get(0)));
+            }
+        });
+    }
+
+
+    /**
+     * this method retrieve a list of QRcode score as String by qr name passes to listener
+     * @param iquery An instance of OnGetPlayerQRCodesListener interface, which store the list of all player objects.
+     * @param qrName qr's name to be searched
+     */
+    public void getQRScoreByName(String qrName, OnGetQRScoreListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String> result = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    if (documentSnapshot.getString("qrcodeName").equals(qrName)){
+                        result.add(documentSnapshot.getString("score"));
+                    }
+                }
+                iquery.success(Collections.singletonList(result.get(0)));
+            }
+        });
+    }
+
+
+    /**
+     * this method retrieve a list of QRcode comments as String by qr name passes to listener
+     * @param iquery An instance of OnGetPlayerQRCodesListener interface, which store the list of all player objects.
+     * @param qrName qr's name to be searched
+     */
+    public void getQRCommentByName(String qrName, OnGetQRCommentListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                String id = null;
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    if (documentSnapshot.getString("qrcodeName").equals(qrName)) {
+                        id = documentSnapshot.getId();
+                    }
+                }
+
+                CollectionReference collecCom_qr = db.collection("QRCode").document(id).collection("Comments");
+                collecCom_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<String> qr_Com = new ArrayList<>();
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            qr_Com.add(documentSnapshot.getId());
+                        }
+                        iquery.success(qr_Com);
+                    }
+                });
+            }
+        });
+    }
 
 }

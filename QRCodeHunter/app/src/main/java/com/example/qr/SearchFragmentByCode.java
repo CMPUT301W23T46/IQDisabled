@@ -1,10 +1,12 @@
 package com.example.qr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -15,7 +17,8 @@ import javax.annotation.Nullable;
  */
 public class SearchFragmentByCode extends DialogFragment {
 
-    Button searchByCodeAddBtn, searchByCodeCancelBtn;
+    private Button searchByCodeAddBtn, searchByCodeCancelBtn;
+    private EditText latitudeEditText, longitudeEditText;
 
     /**
      Sets the size of the dialog window.
@@ -42,12 +45,21 @@ public class SearchFragmentByCode extends DialogFragment {
             savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.search_fragment_by_code,container,false);
+        latitudeEditText = v.findViewById(R.id.search_fragment_latitude_input);
+        longitudeEditText = v.findViewById(R.id.search_fragment_longitude_input);
         searchByCodeAddBtn = v.findViewById(R.id.search_by_code_add_btn);
         searchByCodeCancelBtn = v.findViewById(R.id.search_by_code_cancel_btn);
         searchByCodeAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo
+                double latitude = Double.parseDouble(latitudeEditText.getText().toString());
+                double longitude = Double.parseDouble(longitudeEditText.getText().toString());
+
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+                startActivity(intent);
+                dismiss();
             }
         });
 

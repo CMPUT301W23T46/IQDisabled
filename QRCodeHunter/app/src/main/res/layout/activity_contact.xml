@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#342B49">
+    android:background="#342B49"
+    >
 
 
     <LinearLayout
@@ -22,7 +23,8 @@
         android:id="@+id/contact_headind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Friends"
+        android:fontFamily="sans-serif"
+        android:text="Player Board"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:gravity="center"
@@ -34,7 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/button_view_include"
-        android:layout_below="@+id/contact_headind">
+        android:layout_below="@+id/contact_headind"
+        android:focusable="false"
+        >
 
     </ListView>
 

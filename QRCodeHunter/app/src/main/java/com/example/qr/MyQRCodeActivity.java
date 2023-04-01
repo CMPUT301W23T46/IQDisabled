@@ -99,27 +99,44 @@ public class MyQRCodeActivity extends AppCompatActivity {
                         String documentName = document.getId();
                         documentNames.add(documentName);
                     }
-                }
-        }
-        });
-        db.collection("QRCode")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot querySnapshot = task.getResult();
-                        if (querySnapshot != null) {
-                            for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                                String docName = document.getId();
-                                if (documentNames.contains(docName)) {
-                                    String fieldValue = document.getString("qrcodeName");
-                                    if (fieldValue != null) {
-                                        data.add(fieldValue);
+
+                    db.collection("QRCode")
+                            .get()
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    QuerySnapshot querySnapshot = task1.getResult();
+                                    if (querySnapshot != null) {
+                                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                                            String docName = document.getId();
+                                            if (documentNames.contains(docName)) {
+                                                String fieldValue = document.getString("qrcodeName");
+                                                if (fieldValue != null) {
+                                                    data.add(fieldValue);
+                                                }
+                                            }
+                                        }
+                                        adapter.notifyDataSetChanged();
                                     }
                                 }
+                            });
                             }
-                            adapter.notifyDataSetChanged();
                         }
+                    });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String select = documentNames.get(position);
+                data.remove(position);
+                RemoveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view){
+                        adapter.notifyDataSetChanged();
+                        db.collection("Players").document(username).collection("QRCode").document(select)
+                                .delete();
+
                     }
                 });
+                }
+        });
     }
 }

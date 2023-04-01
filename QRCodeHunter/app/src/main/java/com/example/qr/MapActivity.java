@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,6 +43,7 @@ import java.util.HashMap;
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener{
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private static final String TAG = MapActivity.class.getSimpleName();
     private GoogleMap mMap;
 
     DataBaseHelper dbHelper = new DataBaseHelper();
@@ -58,6 +60,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        db = FirebaseFirestore.getInstance();
         dbHelper = new DataBaseHelper();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(this);
@@ -68,9 +71,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         String username = sharedPref.getString("username","N/A");
         String email = sharedPref.getString("email","N/A");
         String phone = sharedPref.getString("phone","N/A");
-//        System.out.println(username);
-//        System.out.println(email);
-//        System.out.println(phone);
+
         ImageButton homeBtn = findViewById(R.id.home_btn);
         ImageButton addBtn = findViewById(R.id.add_btn);
         ImageButton profileBtn = findViewById(R.id.profile_btn);

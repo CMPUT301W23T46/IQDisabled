@@ -56,8 +56,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -118,6 +122,65 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         EditText edt_comment = findViewById(R.id.edit_comment);
         tw_score.setText(score.toString());
         System.out.println(visualRep);
+
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        try {
+            dbhelper.checkQRCodeExist(hashCode, new OnCheckQRCodeExistListener() {
+                @Override
+                public void onSuccess(boolean result) {
+                    TextView scanned_before = findViewById(R.id.scan_before);
+                    String yes_string = "Yes";
+                    String no_string = "No";
+                    scanned_before.setText(result?yes_string:no_string);
+                    if (!result) {
+                        Toast.makeText(ShowQRCodeActivity.this, "Great job! This one hasn't been scanned!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        dbhelper.getAllQRCode(new OnGetAllQRCodeListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) {
+                List<Integer> scoresList = new ArrayList<>();
+                for (String hashcode : hashcodes) {
+                    dbhelper.getQRcodeScore(hashcode, new OnGetQRCodeScoreListener() {
+                        @Override
+                        public void onSuccess(Integer score_a) {
+                            scoresList.add(score_a);
+                            if (scoresList.size() == hashcodes.length) {
+                                int[] scoresArray = scoresList.stream().mapToInt(Integer::intValue).toArray();
+                                Arrays.sort(scoresArray);
+                                Integer[] temp = Arrays.stream(scoresArray).boxed().toArray(Integer[]::new);
+                                Arrays.sort(temp, Collections.reverseOrder());
+                                scoresArray = Arrays.stream(temp).mapToInt(Integer::valueOf).toArray();
+                                for (int c: scoresArray) {
+                                    System.out.print(c+",,");
+                                }
+                                int j;
+                                for (j = scoresArray.length-1; j >0; j--) {
+                                    if (score < scoresArray[scoresArray.length-1]) {
+                                        j = scoresArray.length;
+                                        break;
+                                    }
+                                    if (scoresArray[j-1]>score && scoresArray[j]<=score) {
+                                        break;
+                                    }
+                                }
+                                j+=1;
+                                TextView score_rank = findViewById(R.id.est_rank);
+                                score_rank.setText(String.valueOf(j));
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
 
         visual_rep.setText(visualRep);
         qrcode_name.setText(name);
