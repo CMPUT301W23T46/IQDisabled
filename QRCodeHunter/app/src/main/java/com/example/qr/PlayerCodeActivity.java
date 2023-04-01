@@ -21,9 +21,14 @@ public class PlayerCodeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         Bundle extras = getIntent().getExtras();
-        String playerName = extras.getString("name");
+        String playerName;
+        if (extras != null) {
+            playerName = extras.getString("name");
+        } else {
+            playerName = "Unavailable";
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_qrcode);
         backBtn = findViewById(R.id.player_back_btn);
@@ -42,7 +47,6 @@ public class PlayerCodeActivity extends AppCompatActivity {
         dbhelper.getPlayerQRCodes(playerName, new OnGetPlayerQRCodesListener() {
 
 
-
             @Override
             public void success(List<String> qrCodes) {
                 PlayerCodeArrayAdapter adapter = new PlayerCodeArrayAdapter(PlayerCodeActivity.this, qrCodes);
@@ -54,7 +58,7 @@ public class PlayerCodeActivity extends AppCompatActivity {
                 Log.e(TAG, "Error retrieving players'code from database", e);
                 Toast.makeText(PlayerCodeActivity.this, "Failed to retrieve code data", Toast.LENGTH_SHORT).show();
             }
-        } );
+        });
 
 
     }

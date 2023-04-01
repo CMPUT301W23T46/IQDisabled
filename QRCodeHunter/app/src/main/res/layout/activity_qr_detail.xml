@@ -1,0 +1,147 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#342B49"
+    android:backgroundTint="#342B49">
+
+    <TextView
+        android:id="@+id/qrcode_detail_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="casual"
+        android:text="QR codes Details"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/qrcode_detail_txt"
+        android:background="#77F1E8FF">
+
+
+        <TextView
+            android:id="@+id/qrcode_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR Name"
+
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/qrcode_detail_rep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR Rep"
+            android:layout_below = "@id/qrcode_detail_name"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            >
+
+        </TextView>
+
+
+
+
+
+        <TextView
+            android:id="@+id/qrcode_detail_score_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: "
+            android:layout_below = "@id/qrcode_detail_rep"
+            android:textSize="25dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="20dp"
+            >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/qrcode_detail_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-100"
+            android:layout_below = "@id/qrcode_detail_rep"
+            android:layout_toEndOf="@id/qrcode_detail_score_txt"
+            android:textSize="25dp"
+            android:layout_alignTop="@id/qrcode_detail_score_txt">
+
+        </TextView>
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/qrcode_detail_comment_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comment: "
+            android:layout_below = "@id/qrcode_detail_score_txt"
+            android:textSize="25dp"
+            android:layout_marginStart="50dp"
+
+            android:layout_marginTop="40dp"
+            >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/qrcode_detail_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Comment availablessssssssss aaaa aaa"
+
+            android:layout_toEndOf="@id/qrcode_detail_comment_txt"
+            android:textSize="25dp"
+            android:layout_alignTop="@id/qrcode_detail_comment_txt">
+
+        </TextView>
+
+
+        <Button
+            android:id="@+id/view_on_map_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:layout_centerHorizontal="true"
+            android:text="View On Map"
+            android:textSize="25dp"
+            android:layout_alignParentBottom="true"
+            >
+
+        </Button>
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+    <ImageButton
+        android:id="@+id/detail_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+</RelativeLayout>

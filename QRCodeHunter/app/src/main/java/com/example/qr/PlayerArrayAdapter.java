@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PlayerArrayAdapter extends ArrayAdapter<Player> {
     private final Context context;
@@ -34,9 +35,19 @@ public class PlayerArrayAdapter extends ArrayAdapter<Player> {
         viewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PlayerCodeActivity.class);
-                intent.putExtra("name", playerList[p].getPlayName());
-                context.startActivity(intent);
+                DataBaseHelper dbhelper = new DataBaseHelper();
+                dbhelper.getQRCodesNum(playerList[p].getPlayName(), new OnQRCodeLengthComplete() {
+                    @Override
+                    public void onSuccess(int length) {
+                        if (length == 0) {
+                            Toast.makeText(context, "No QR Code Found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(context, PlayerCodeActivity.class);
+                            intent.putExtra("name", playerList[p].getPlayName());
+                            context.startActivity(intent);
+                        }
+                    }
+                });
             }
         });
 
