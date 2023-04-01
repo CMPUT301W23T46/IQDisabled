@@ -91,8 +91,13 @@ public class QRCode {
      Returns the comments about the QR code
      @return an array of comments about the QR code
      */
-
     public String[] getComments() {
         return comments;
     }
+
+    public String getContent(){
+        return content;
+    }
+
+
 }
