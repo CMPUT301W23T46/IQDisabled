@@ -209,6 +209,7 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             }
         });
 
+
         take_pic_cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
