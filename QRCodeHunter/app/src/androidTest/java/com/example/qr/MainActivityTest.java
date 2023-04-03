@@ -91,7 +91,14 @@ public class MainActivityTest {
         solo.clickOnButton("Back");
         solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
     }
-
+    @Test
+    public void checkJumping6() {
+        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        onView(withId(R.id.add_btn)).perform(click());
+        solo.assertCurrentActivity("Wrong Activity",AddCodeActivity.class);
+        solo.clickOnButton("btn_scan");
+        solo.assertCurrentActivity("Wrong Activity",ShowQRCodeActivity.class);
+    }
 
 
 }

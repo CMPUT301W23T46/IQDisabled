@@ -54,89 +54,16 @@ public class MyQRCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcodes);
-        Button statisticsButton = findViewById(R.id.bottom_button_1);
-        Button RankingButton = findViewById(R.id.bottom_button_2);
-        Button RemoveButton = findViewById(R.id.bottom_button_3);
-        ImageButton backButton = findViewById(R.id.imageButton13);
+
+
+
         ListView listView = findViewById(R.id.qrcodes);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         listView.setAdapter(adapter);
 
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyQRCodeActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        statisticsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyQRCodeActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        RankingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyQRCodeActivity.this, MyRankingActivity.class);
-                startActivity(intent);
-            }
-        });
-        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-        String username = sharedPref.getString("username","N/A");
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        List<String> documentNames = new ArrayList<>();
-        CollectionReference myqrcode = db.collection("Players").document(username).collection("QRCode");
-        myqrcode.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String documentName = document.getId();
-                        documentNames.add(documentName);
-                    }
 
-                    db.collection("QRCode")
-                            .get()
-                            .addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    QuerySnapshot querySnapshot = task1.getResult();
-                                    if (querySnapshot != null) {
-                                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                                            String docName = document.getId();
-                                            if (documentNames.contains(docName)) {
-                                                String fieldValue = document.getString("qrcodeName");
-                                                if (fieldValue != null) {
-                                                    data.add(fieldValue);
-                                                }
-                                            }
-                                        }
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }
-                            });
-                            }
-                        }
-                    });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String select = documentNames.get(position);
-                data.remove(position);
-                RemoveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view){
-                        adapter.notifyDataSetChanged();
-                        db.collection("Players").document(username).collection("QRCode").document(select)
-                                .delete();
-
-                    }
-                });
-                }
-        });
     }
 }
