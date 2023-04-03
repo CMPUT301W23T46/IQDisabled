@@ -118,6 +118,8 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; ELS-AN00" value="120" />
+                  <entry key="MDX0220409016212" value="120" />
                   <entry key="Pixel_6_API_33_Emulator" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
