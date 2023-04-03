@@ -23,9 +23,6 @@ public class HomeActivity extends AppCompatActivity {
      * and sets up click listeners for navigation buttons to the home screen, map screen, profile screen,
      * and add code screen.
      *
-     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then
-     *                             this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
-     *                             Otherwise, it is null.
      */
     ImageButton searchBtn;
     @Override

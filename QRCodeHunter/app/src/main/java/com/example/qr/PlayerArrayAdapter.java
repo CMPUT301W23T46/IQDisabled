@@ -31,7 +31,6 @@ public class PlayerArrayAdapter extends ArrayAdapter<Player> {
     /**
      * Overrides the getView method of the ArrayAdapter class to provide a customized view for each player item in the list.
      *
-     * @param position the position of the item in the list
      * @param convertView the recycled view to populate
      * @param parent the parent view group of the item
      * @return the view for the specified position in the list

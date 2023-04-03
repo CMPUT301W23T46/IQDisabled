@@ -163,7 +163,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * handles the actions for after the map has been initialized.
-     * @param googleMap
      */
 
     @Override

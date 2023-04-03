@@ -459,7 +459,6 @@ public class DataBaseHelper {
      * Retrieves a QR code by its hashcode and its associated comments.
      * @param hashcode the hashcode of the QR code to retrieve.
      * @param iquery the callback to handle the retrieved QR code.
-     * @throws NoSuchAlgorithmException if there is an error processing the comments.
      */
     public void getQRCodeByName(String hashcode, OnGetQRCodeListener iquery) {
         db = FirebaseFirestore.getInstance();
