@@ -14,27 +14,45 @@
         android:layout_marginLeft="15dp"
         android:gravity="center"
         android:text="QRName"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:focusable="false"
         android:focusableInTouchMode="false"/>
 
-    <Button
+    <ImageButton
+        android:id="@+id/detail_qr_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/delete_qr_btn"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+
+
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:src="@android:drawable/ic_menu_info_details"
+        android:text="delete">
+
+    </ImageButton>
+
+    <ImageButton
         android:id="@+id/delete_qr_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:fontFamily="casual"
         android:gravity="center"
-        android:layout_alignParentEnd="true"
+        android:src="@android:drawable/ic_delete"
+        android:text="delete">
 
-        android:clickable="true"
-        android:layout_centerVertical="true"
-        android:focusableInTouchMode="false"
-        android:focusable="false"
-        android:includeFontPadding="false"
-        android:text="delete"
-        android:textSize="15sp">
-
-    </Button>
+    </ImageButton>
 
 
 
