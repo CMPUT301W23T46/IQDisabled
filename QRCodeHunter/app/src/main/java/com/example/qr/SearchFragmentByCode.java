@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -55,11 +56,16 @@ public class SearchFragmentByCode extends DialogFragment {
                 double latitude = Double.parseDouble(latitudeEditText.getText().toString());
                 double longitude = Double.parseDouble(longitudeEditText.getText().toString());
 
-                Intent intent = new Intent(getActivity(), MapActivity.class);
-                intent.putExtra("latitude", latitude);
-                intent.putExtra("longitude", longitude);
-                startActivity(intent);
-                dismiss();
+                Intent intent = new Intent(getActivity(), SearchByCodeMapActivity.class);
+                if (latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude<= 180) {
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                    startActivity(intent);
+                    dismiss();
+                } else {
+                    Toast.makeText(getActivity(), "Invalid latitude or longitude", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
