@@ -36,6 +36,10 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
 
-
+    <ImageButton
+        android:id="@+id/imageButton13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/homeAsUpIndicator" />
 
 </RelativeLayout>
