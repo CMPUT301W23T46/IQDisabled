@@ -5,9 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * The QRCodeStatsTest class contains unit tests for the QRCodeStats class.
+ */
 public class QRCodeStatsTest {
-
+    /**
+     * Tests the hashString method of the QRCodeStats class.
+     * @throws NoSuchAlgorithmException if an error occurs during the hash calculation.
+     */
     @Test
     public void hashString() throws NoSuchAlgorithmException {
         String input = "9661932184";
@@ -15,7 +20,9 @@ public class QRCodeStatsTest {
         QRCodeStats s = new QRCodeStats(input);
         assertEquals(QRCodeStats.hashString(),expected);
     }
-
+    /**
+     * Tests the extractFirstSix method of the QRCodeStats class.
+     */
     @Test
     public void extractFirstSix() {
         String input = "9661932184";
@@ -23,7 +30,9 @@ public class QRCodeStatsTest {
         String expected = "100101";
         assertEquals(ouput,expected);
     }
-
+    /**
+     * Tests the naming method of the QRCodeStats class.
+     */
     @Test
     public void naming() {
         String input = "9661932184";
@@ -31,7 +40,9 @@ public class QRCodeStatsTest {
         String expected = "hot GloLoUltraSonicShark";
         assertEquals(ouput,expected);
     }
-
+    /**
+     * Tests the scoring method of the QRCodeStats class.
+     */
     @Test
     public void scoring() {
         String input = "9661932184";
@@ -39,7 +50,9 @@ public class QRCodeStatsTest {
         int expected = 6;
         assertEquals(ouput,expected);
     }
-
+    /**
+     * Tests the visualRep method of the QRCodeStats class.
+     */
     @Test
     public void visualRep() {
         String input = "9661932184";
