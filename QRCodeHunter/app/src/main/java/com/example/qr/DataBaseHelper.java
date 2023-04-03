@@ -733,4 +733,34 @@ public class DataBaseHelper {
         });
     }
 
+
+    public void add_comment(String qrName, String comment, OnAddCommentListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection("QRCode");
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                String id = null;
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    if (documentSnapshot.getString("qrcodeName").equals(qrName)) {
+                        id = documentSnapshot.getId();
+                    }
+                }
+
+                CollectionReference collecCom_qr = db.collection("QRCode").document(id).collection("Comments");
+                collecCom_qr.document(comment).set(new HashMap<>()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        iquery.success();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        iquery.failure(e);
+                    }
+                });
+            }
+        });
+    }
+
 }
