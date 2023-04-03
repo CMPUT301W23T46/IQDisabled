@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -115,5 +115,8 @@ private Solo solo;
         solo.assertCurrentActivity("Wrong Activity", HighestScoreOfAllPlayerActivity.class);
     }
 
-
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
+    }
 }

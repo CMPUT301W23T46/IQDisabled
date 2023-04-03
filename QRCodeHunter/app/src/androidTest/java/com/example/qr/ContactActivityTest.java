@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -83,5 +83,9 @@ public class ContactActivityTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.qr", appContext.getPackageName());
+    }
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
     }
 }

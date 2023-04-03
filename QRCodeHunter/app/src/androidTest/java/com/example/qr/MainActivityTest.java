@@ -39,49 +39,26 @@ import com.robotium.solo.Solo;
 
 import java.util.List;
 
-/**
- * This class provides a set of automated tests for the MainActivity class of the QR app.
- * It utilizes the Solo, ActivityTestRule, and Espresso classes to perform UI testing on the MainActivity.
- *
- * @see Solo
- * @see ActivityTestRule
- * @see Espresso
- * @see MainActivity
- */
+
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     private Solo solo;
-    /**
-     * The ActivityTestRule is a JUnit rule that launches the MainActivity under test
-     * before each test method in this class.
-     */
+
     @Rule
     public ActivityTestRule<MainActivity> rule =
             new ActivityTestRule<>(MainActivity.class,true, true);
-    /**
-     * This method runs before each test method in this class and initializes the Solo object
-     * with the instrumentation context and the MainActivity under test.
-     *
-     * @throws Exception if an error occurs during setup
-     */
+
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
 
     }
-    /**
-     * This test method verifies that the MainActivity is started successfully.
-     *
-     * @throws Exception if an error occurs during the test
-     */
+
     @Test
     public void start() throws Exception {
         Activity activity = rule.getActivity();
 
     }
-    /**
-     * This test method verifies that the "View QR Codes" button launches the MyQRCodeActivity.
-     */
 
     @Test
     public void checkJump2MyQRCode() throws InterruptedException {
@@ -91,9 +68,6 @@ public class MainActivityTest {
     }
 
 
-    /**
-     * This test method verifies that the search button launches the SearchActivity.
-     */
     @Test
     public void checkSearch() {
 
@@ -103,36 +77,29 @@ public class MainActivityTest {
         solo.assertCurrentActivity("Wrong Activity", SearchActivity.class);
 
     }
-    /**
-     * This test method verifies that the contact button launches the ContactActivity.
-     */
+
     @Test
     public void checkJumping() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
         onView(withId(R.id.contact_btn)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",ContactActivity.class);
     }
-    /**
-     * This test method verifies that the add button launches the AddCodeActivity.
-     */
+
     @Test
     public void checkJumping2() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
         onView(withId(R.id.add_btn)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",AddCodeActivity.class);
     }
-    /**
-     * This test method verifies that the profile button launches the ProfileActivity.
-     */
+
+
+
     @Test
     public void checkJumping4() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
         onView(withId(R.id.profile_btn)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",ProfileActivity.class);
     }
-    /**
-     * This test method verifies that the "Back" button in the AddCodeActivity returns the user to the HomeActivity.
-     */
     @Test
     public void checkJumping5() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
@@ -141,12 +108,6 @@ public class MainActivityTest {
         solo.clickOnButton("Back");
         solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
     }
-    /**
-     * This test method verifies that a new QR code is added successfully.
-     * It first launches the AddCodeActivity, then simulates scanning a QR code
-     * and entering comment and geolocation information before submitting the code.
-     * Finally, it verifies that the code is added to the user's QR codes in the MyQRCodeActivity.
-     */
     @Test
     public void checkJumping6() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
@@ -169,19 +130,12 @@ public class MainActivityTest {
         String code = ((QRCode) codeList.getItemAtPosition(0)).getHashCode(); // Get item from first position
         assertNotNull(code);
     }
-    /**
-     * This test method verifies that the map button launches the MapActivity.
-     */
     @Test
     public void checkJumping7() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
         onView(withId(R.id.map_btn)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",MapActivity.class);
     }
-    /**
-     * This test method verifies that the contact button launches the ContactActivity,
-     * and that the list of players is displayed correctly in the ContactActivity.
-     */
     @Test
     public void checkJumping8() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
@@ -215,10 +169,7 @@ public class MainActivityTest {
         });
         return stringHolder[0];
     }
-    /**
-     * This test method verifies that the profile button launches the ProfileActivity,
-     * and that the user's name is correctly displayed in the ProfileActivity.
-     */
+
     @Test
     public void checkJumping9() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
@@ -235,10 +186,7 @@ public class MainActivityTest {
         solo.clickOnButton("Add");
         solo.assertCurrentActivity("Wrong Activity",ShowOtherProfile.class);
     }
-    /**
-     * This test method verifies that the search for QR code button launches the SearchByCode
-     * activity with correct longitude and latitude information entered by the user.
-     */
+
     @Test
     public void checkJumping10() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
@@ -249,6 +197,10 @@ public class MainActivityTest {
         solo.enterText((EditText) solo.getView(R.id.search_fragment_longitude_input), "-113");
         solo.clickOnButton("Add");
         solo.assertCurrentActivity("Wrong Activity",SearchByCodeMapActivity.class);
+    }
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
     }
 }
 
