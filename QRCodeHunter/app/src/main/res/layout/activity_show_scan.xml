@@ -161,7 +161,7 @@
         android:text="Record Geolocation" />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/button_back_go"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -169,39 +169,40 @@
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:padding="5dp"
             android:layout_height="wrap_content"
             android:id="@+id/take_pic_btn"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:background="@color/gray"
             android:text="Take Picture"
             android:textSize="15dp"
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:padding="5dp"
             android:layout_height="wrap_content"
             android:id="@+id/back_btn"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:background="@color/gray"
             android:text="Back"
             android:textSize="15dp"
             android:textColor="@color/black"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_toEndOf="@id/take_pic_btn"
+            />
         <Button
             android:padding="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:id="@+id/submit_btn"
             android:background="@color/gray"
             android:text="Submit"
             android:textSize="15dp"
-            android:textColor="@color/black"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/black" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
