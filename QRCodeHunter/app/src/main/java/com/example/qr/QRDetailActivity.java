@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class QRDetailActivity extends AppCompatActivity {
@@ -26,21 +28,12 @@ public class QRDetailActivity extends AppCompatActivity {
         String qr_name = extras.getString("qrName");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_detail);
-        backBtn = findViewById(R.id.detail_back_btn);
         mapBtn = findViewById(R.id.view_on_map_btn);
         qrName = findViewById(R.id.qrcode_detail_name);
         qrRep = findViewById(R.id.qrcode_detail_rep);
         qrScore = findViewById(R.id.qrcode_detail_score);
         qrComment = findViewById(R.id.qrcode_detail_comment);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QRDetailActivity.this, PlayerCodeActivity.class);
-                intent.putExtra("qrName",qr_name);
-                startActivity(intent);
-            }
-        });
 
         qrName.setText(qr_name);
 
@@ -81,6 +74,29 @@ public class QRDetailActivity extends AppCompatActivity {
             }
             @Override
             public void failure(Exception e) {
+            }
+        });
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataBaseHelper dbHelper = new DataBaseHelper();
+                dbHelper.getGeoByName(qr_name, new OnGetGeoListener() {
+                    @Override
+                    public void success(List<String> geoPoint) {
+                        Intent intent = new Intent(QRDetailActivity.this, MapActivity.class);
+                        intent.putExtra("qrName", qr_name);
+                        intent.putExtra("qrLat", geoPoint.get(0));
+                        intent.putExtra("qrLng", geoPoint.get(1));
+                        System.out.println(geoPoint.get(0)+"/"+geoPoint.get(1));
+                        startActivity(intent);
+                    }
+                    @Override
+                    public void failure(Exception e) {
+                    }
+                });
+
+
             }
         });
     }

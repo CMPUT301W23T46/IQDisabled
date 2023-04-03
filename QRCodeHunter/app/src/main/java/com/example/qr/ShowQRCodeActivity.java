@@ -10,6 +10,7 @@ import androidx.camera.view.PreviewView;
 import androidx.camera.core.ImageCapture;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -63,6 +65,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 /**
@@ -78,6 +81,8 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
     private double longitude;
     FirebaseFirestore db;
     private String hashCode;
+
+    private String image;
 
     private int called_times;
     /**
@@ -204,6 +209,7 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             }
         });
 
+
         take_pic_cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,16 +238,19 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                         } else {
                             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, ShowQRCodeActivity.this);
                         }
-                        Toast.makeText(ShowQRCodeActivity.this, "Latitude: " + ShowQRCodeActivity.this.latitude + ", Longitude: " + ShowQRCodeActivity.this.longitude, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ShowQRCodeActivity.this, "Latitude: " + ShowQRCodeActivity.this.latitude + ", Longitude: " + ShowQRCodeActivity.this.longitude, Toast.LENGTH_SHORT).show();
                         db = FirebaseFirestore.getInstance();
                         CollectionReference collectRef = db.collection("QRCode");
-                        HashMap<String, String> value = new HashMap<>();
+                        HashMap<String, Object> value = new HashMap<>();
+
                         QRCode qr = new QRCode(hashContent);
                         value.put("latitude",String.valueOf(ShowQRCodeActivity.this.latitude));
                         value.put("longitude",String.valueOf(ShowQRCodeActivity.this.longitude));
                         value.put("qrcodeName",qr.getQrcodeName());
                         value.put("score",String.valueOf(qr.getScore()));
                         value.put("visual_rep",qr.getVisual_rep());
+                        String temp = ShowQRCodeActivity.this.image;
+                        value.put("image",temp);
                         collectRef.document(hashContent).set(value).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
@@ -268,11 +277,13 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                     CollectionReference collectRef = db.collection("QRCode");
                     HashMap<String, String> value = new HashMap<>();
                     QRCode qr = new QRCode(hashContent);
-                    value.put("latitude",String.valueOf("0"));
-                    value.put("longitude",String.valueOf("0"));
+                    value.put("latitude",String.valueOf("250"));
+                    value.put("longitude",String.valueOf("250"));
                     value.put("qrcodeName",qr.getQrcodeName());
                     value.put("score",String.valueOf(qr.getScore()));
                     value.put("visual_rep",qr.getVisual_rep());
+                    String temp = ShowQRCodeActivity.this.image;
+                    value.put("image",temp);
                     collectRef.document(hashContent).set(value).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -289,6 +300,26 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                         }
                     });
                 }
+                DataBaseHelper dbhelper = new DataBaseHelper();
+                SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                String username = sharedPref.getString("username","N/A");
+                String hash_add = ShowQRCodeActivity.this.hashCode;
+                db = FirebaseFirestore.getInstance();
+                CollectionReference collectRef = db.collection("Players").document(username).collection("QRCode");
+
+                Map<String,Object> value = new HashMap<>();
+                value.put(hash_add,hash_add);
+                collectRef.document(hash_add).set(value).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG,"Success");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG,"Failed");
+                    }
+                });
             }
         });
 
@@ -375,17 +406,37 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
     public void onLocationChanged(Location location) {
 
             // Handle location update
+        if (called_times <= 2) {
             called_times+=1;
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            ShowQRCodeActivity.this.latitude = location.getLatitude();
+            ShowQRCodeActivity.this.longitude = location.getLongitude();
+            System.out.println(this.longitude+this.latitude);
+            EditText edx = findViewById(R.id.edit_comment);
+
+            Map<String,Object> values = new HashMap<>();
+            values.put("longitude",String.valueOf(longitude));
+            values.put("latitude",String.valueOf(latitude));
+            db=FirebaseFirestore.getInstance();
+            DocumentReference docuRef = db.collection("QRCode").document(this.hashCode);
+
+            docuRef.update(values).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d(TAG,"Success");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"Failed");
+                }
+            });
         }
-        ShowQRCodeActivity.this.latitude = location.getLatitude();
-        ShowQRCodeActivity.this.longitude = location.getLongitude();
-        System.out.println(this.longitude+this.latitude);
-        EditText edx = findViewById(R.id.edit_comment);
-        //TODO: Submit to database
+
 
     }
 
@@ -470,40 +521,7 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
 //        bitmap = BitmapFactory.decodeByteArray(baos.toByteArray(),0,baos.size());
         byte[] imageData = baos.toByteArray();
 
+        this.image = imageData.toString();
 //        System.out.println(imageData[1]);
-        upload(imageData);
-    }
-
-    /**
-     Uploads the image data to Firebase Firestore.
-     @param imageData The byte array of the compressed image data.
-     */
-    private void upload(byte[] imageData) {
-        db = FirebaseFirestore.getInstance();
-        CollectionReference collecRef = db.collection("QRCode");
-        HashMap<String,String> value = new HashMap<>();
-        value.put("image",imageData.toString());
-        collecRef.document(this.hashCode).set(value).addOnSuccessListener(
-                new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG,"success");
-                    }
-                }
-        ).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"failed");
-            }
-        });
-//        StorageReference imageRef = storageRef.child("images/image.jpeg");
-//
-//        // Upload the image to Firebase Storage
-//        UploadTask uploadTask = imageRef.putBytes(imageData);
-//        uploadTask.addOnSuccessListener(taskSnapshot -> {
-//            Log.d(TAG,"Success");
-//        }).addOnFailureListener(e -> {
-//            Log.d(TAG,"Failed");
-//        });
     }
 }

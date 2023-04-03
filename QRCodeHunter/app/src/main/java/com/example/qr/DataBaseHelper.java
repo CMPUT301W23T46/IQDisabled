@@ -714,4 +714,23 @@ public class DataBaseHelper {
         });
     }
 
+    public void getGeoByName(String qrName, OnGetGeoListener iquery) {
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collecRef_qr = db.collection("QRCode");
+
+        collecRef_qr.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String> result = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    if (documentSnapshot.getString("qrcodeName").equals(qrName)){
+                        result.add(documentSnapshot.getString("latitude"));
+                        result.add(documentSnapshot.getString("longitude"));
+                    }
+                }
+                iquery.success(result);
+            }
+        });
+    }
+
 }
