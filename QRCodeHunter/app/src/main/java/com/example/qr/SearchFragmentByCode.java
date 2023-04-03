@@ -16,7 +16,6 @@ import javax.annotation.Nullable;
  A dialog fragment for searching players by code.
  */
 public class SearchFragmentByCode extends DialogFragment {
-
     private Button searchByCodeAddBtn, searchByCodeCancelBtn;
     private EditText latitudeEditText, longitudeEditText;
 
@@ -62,7 +61,6 @@ public class SearchFragmentByCode extends DialogFragment {
                 dismiss();
             }
         });
-
         searchByCodeCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +69,4 @@ public class SearchFragmentByCode extends DialogFragment {
         });
         return v;
     }
-
-
-
 }

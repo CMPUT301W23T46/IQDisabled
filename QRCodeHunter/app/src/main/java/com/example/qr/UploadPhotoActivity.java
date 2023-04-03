@@ -21,7 +21,6 @@ public class UploadPhotoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_photo);
-
         Button upload_btn = findViewById(R.id.upload_btn);
         ImageButton back_btn = findViewById(R.id.upload_back_btn);
 
@@ -32,7 +31,6 @@ public class UploadPhotoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

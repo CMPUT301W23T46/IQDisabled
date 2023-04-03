@@ -61,9 +61,6 @@ public class SignUpActivity extends AppCompatActivity {
                 String usernameString = username.getText().toString();
                 String emailString = email.getText().toString();
                 String phoneString = phoneNum.getText().toString();
-
-
-
                 player.setPlayName(usernameString);
                 player.setEmail(emailString);
                 player.setPhone_number(phoneString);
@@ -93,7 +90,6 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 };
-
                 try {
                     dbHelper.checkUserNameExist(player.getPlayName(), listener);
                 } catch (ExecutionException e) {
@@ -101,11 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-
-
             }
-
-
         });
     }
 }

@@ -12,7 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
-
+/**
+ * The QRDetailActivity displays details about a specific QR code, including its name, representative,
+ * score, and any comments associated with it. It also provides a button to view the QR code on a map.
+ */
 public class QRDetailActivity extends AppCompatActivity {
     ImageButton backBtn;
     Button mapBtn;
@@ -21,8 +24,13 @@ public class QRDetailActivity extends AppCompatActivity {
     TextView qrScore;
     TextView qrComment;
 
-
     @Override
+    /**
+     * Initializes the UI elements and sets the QR code's name. Retrieves the QR code's representative, score,
+     * and comments from the database, and displays them in the corresponding text views.
+     *
+     * @param savedInstanceState saved instance state of the activity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
         String qr_name = extras.getString("qrName");
@@ -33,8 +41,6 @@ public class QRDetailActivity extends AppCompatActivity {
         qrRep = findViewById(R.id.qrcode_detail_rep);
         qrScore = findViewById(R.id.qrcode_detail_score);
         qrComment = findViewById(R.id.qrcode_detail_comment);
-
-
         qrName.setText(qr_name);
 
         DataBaseHelper dbhelper = new DataBaseHelper();

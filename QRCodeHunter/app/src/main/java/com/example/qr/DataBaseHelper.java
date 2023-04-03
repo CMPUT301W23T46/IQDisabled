@@ -563,12 +563,6 @@ public class DataBaseHelper {
         collecRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-
-
-
-
-
                 List<Player> playerList = new ArrayList<>();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     // Get the data of each document and convert to Player object

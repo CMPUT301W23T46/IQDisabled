@@ -18,9 +18,7 @@ import javax.annotation.Nullable;
 /**
  A dialog fragment for searching players by code.
  */
-
 public class SearchFragmentByName extends DialogFragment {
-
     Button searchByNameAddBtn, searchByNameCancelBtn;
     /**
      * This method is called when the fragment is started. It sets the width and height
@@ -88,7 +86,4 @@ public class SearchFragmentByName extends DialogFragment {
         });
         return v;
     }
-
-
-
 }

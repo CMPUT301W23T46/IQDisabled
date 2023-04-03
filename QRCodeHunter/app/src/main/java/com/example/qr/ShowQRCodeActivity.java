@@ -436,8 +436,6 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
                 }
             });
         }
-
-
     }
 
     /**
@@ -446,7 +444,6 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
      and image capture use case. When the user clicks the capture button, it saves the captured image
      to the device and uploads it to the Firebase database.
      */
-
     public void take_Pic() {
         if (!checkPermission()) {
             requestPermission();
@@ -511,6 +508,11 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
         }, ContextCompat.getMainExecutor(this));
     }
 
+    /**
+     * This method compresses the given image file and uploads it.
+     *
+     * @param file - The image file to be compressed and uploaded
+     */
     private void compressAndUpload(File file) {
         // Read the image file as a Bitmap
 //        System.out.println(file == null);

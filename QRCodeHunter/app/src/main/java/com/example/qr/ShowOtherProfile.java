@@ -28,15 +28,9 @@ public class ShowOtherProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_profile);
-
         Intent intent = getIntent();
-
         String username = intent.getStringExtra("name");
-
-
         TextView tw3 = findViewById(R.id.e_user_name);
-
-
         tw3.setText(username);
 
         Button back_btn = findViewById(R.id.go_back_btn);
@@ -47,8 +41,5 @@ public class ShowOtherProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 }

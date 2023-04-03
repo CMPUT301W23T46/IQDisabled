@@ -34,21 +34,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The MyQRCodeActivity class extends the AppCompatActivity class and is responsible for displaying the qrcodes I have
- * added to my account.
+ * The MyQRCodeActivity class is responsible for displaying a list of QR codes for a particular player.
+ * It allows the player to navigate to different activities, such as viewing statistics and rankings,
+ * and to remove a selected QR code from their collection.
  */
 public class MyQRCodeActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     List<String> data = new ArrayList<>();
 
     /**
-     * Called when the activity is starting. Retrieves the user's contact information from shared preferences
-     * and sets up click listeners for navigation buttons to the home screen, map screen, profile screen,
-     * and add code screen.
-     * @param savedInstanceState If the activity is being re-initialized after
-     *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     * Called when the activity is starting. It initializes the layout and sets up the UI components.
+     * It also retrieves the user's QR code collection from Firestore and displays it in the list.
      *
+     * @param savedInstanceState a Bundle object containing the activity's previously saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +91,14 @@ public class MyQRCodeActivity extends AppCompatActivity {
         CollectionReference myqrcode = db.collection("Players").document(username).collection("QRCode");
         myqrcode.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+            /**
+             * This method is called when a Firestore database operation is completed. It checks if the task was successful
+             * and, if so, retrieves the query snapshot from the task result. The query snapshot is used to perform
+             * further operations on the Firestore database, such as displaying the user's QR codes in a list or deleting
+             * a selected QR code from the database. If the task was not successful, an exception is thrown.
+             *
+             * @param task a Task object containing the result of the Firestore database operation
+             */
             public void onComplete(Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
@@ -124,6 +130,16 @@ public class MyQRCodeActivity extends AppCompatActivity {
                     });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+            /**
+             * This method is called when an item in the ListView is clicked. It retrieves the selected item's position and ID,
+             * and then performs an action, such as removing the selected QR code from the database and updating the UI to remove
+             * the item from the list.
+             *
+             * @param parent   the AdapterView where the click happened
+             * @param view     the view within the AdapterView that was clicked
+             * @param position the position of the view in the adapter
+             * @param id       the row ID of the item that was clicked
+             */
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String select = documentNames.get(position);
                 data.remove(position);

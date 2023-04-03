@@ -14,17 +14,18 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
-
- * The HighestScoreOfAllPlayerActivity class displays the highest score of all players in the game.
-
- * It extends the AppCompatActivity class.
+ * The HighestScoreOfAllPlayerActivity class is responsible for displaying the highest, lowest, and total scores for
+ * a player's QR codes, as well as the highest score across all players' QR codes.
+ * It retrieves the necessary data from a Firestore database and displays it in the UI.
  */
 public class HighestScoreOfAllPlayerActivity extends AppCompatActivity {
-
     /**
-
-     Called when the activity is starting. This is where most initialization should go.
-     @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).*/
+     * Called when the activity is starting. It initializes the layout and sets up the UI components.
+     * It retrieves the necessary data from a Firestore database, such as the player's QR codes and their scores,
+     * and displays it in the UI.
+     *
+     * @param savedInstanceState a Bundle object containing the activity's previously saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +46,23 @@ public class HighestScoreOfAllPlayerActivity extends AppCompatActivity {
         DataBaseHelper dbhelper = new DataBaseHelper();
         dbhelper.getAllQRCode(new OnGetAllQRCodeListener() {
             @Override
+            /**
+             * This method is called when a Firestore database operation is completed successfully. It retrieves an array of
+             * QR code hashcodes from the task result, and then performs an action, such as retrieving the scores for each QR code.
+             *
+             * @param hashcodes an array of strings representing the hashcodes for each QR code retrieved from the database
+             */
             public void onSuccess(String[] hashcodes) {
                 List<Integer> scoresList = new ArrayList<>();
                 for (String hashcode : hashcodes) {
                     dbhelper.getQRcodeScore(hashcode, new OnGetQRCodeScoreListener() {
                         @Override
+                        /**
+                         * This method is called when a Firestore database operation is completed successfully. It retrieves an integer score
+                         * from the task result, and then performs an action, such as adding the score to a list or displaying it in the UI.
+                         *
+                         * @param score an integer representing the score retrieved from the database
+                         */
                         public void onSuccess(Integer score) {
                             scoresList.add(score);
                             if (scoresList.size() == hashcodes.length) {
@@ -66,6 +79,14 @@ public class HighestScoreOfAllPlayerActivity extends AppCompatActivity {
 
         dbhelper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
             @Override
+            /**
+             * This method is called when a Firestore database operation is completed successfully. It retrieves an array of
+             * QR code hashcodes from the task result, and then performs an action, such as retrieving the scores for each QR code.
+             * The method throws an InterruptedException if there is an error with the thread.
+             *
+             * @param hashcodes an array of strings representing the hashcodes for each QR code retrieved from the database
+             * @throws InterruptedException if there is an error with the thread
+             */
             public void onSuccess(String[] hashcodes) throws InterruptedException {
                 // Declare an ArrayList to store the scores
                 List<Integer> scoresList = new ArrayList<>();
