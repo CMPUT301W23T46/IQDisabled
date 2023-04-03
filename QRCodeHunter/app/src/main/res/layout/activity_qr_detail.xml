@@ -38,7 +38,7 @@
 
             android:textSize="25dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             >
 
         </TextView>
@@ -51,7 +51,7 @@
             android:layout_below = "@id/qrcode_detail_name"
             android:textSize="25dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             >
 
         </TextView>
@@ -68,7 +68,7 @@
             android:layout_below = "@id/qrcode_detail_rep"
             android:textSize="25dp"
             android:layout_marginStart="140dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             >
 
         </TextView>
@@ -99,7 +99,7 @@
             android:textSize="25dp"
             android:layout_marginStart="50dp"
 
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             >
 
         </TextView>
@@ -116,12 +116,32 @@
 
         </TextView>
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_comment"
+            android:hint="Add Comments"
+            android:layout_above="@id/view_on_map_btn"
+            android:layout_marginBottom="30dp"
+            android:layout_centerHorizontal="true">
+
+        </EditText>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_alignTop="@+id/add_comment"
+            android:layout_toEndOf="@+id/add_comment">
+
+        </Button>
+
 
         <Button
             android:id="@+id/view_on_map_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true"
             android:text="View On Map"
             android:textSize="25dp"
