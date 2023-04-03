@@ -3,12 +3,14 @@ package com.example.qr;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +44,8 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode>{
 
         qrCodeTextView.setText(qrList.get(p).getQrcodeName());
 
-        Button delete = rowView.findViewById(R.id.delete_qr_btn);
+        ImageButton delete = rowView.findViewById(R.id.delete_qr_btn);
+        ImageButton detail = rowView.findViewById(R.id.detail_qr_btn);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +55,16 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode>{
                 db.collection("Players").document(username).collection("QRCode").document(document_name).delete();
 
                 notifyDataSetChanged();
+            }
+        });
+
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, QRDetailActivity.class);
+                intent.putExtra("qrName", qrList.get(p).getQrcodeName());
+
+                context.startActivity(intent);
             }
         });
 
