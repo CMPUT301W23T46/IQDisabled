@@ -83,6 +83,15 @@ public class MainActivityTest {
         onView(withId(R.id.profile_btn)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",ProfileActivity.class);
     }
+    @Test
+    public void checkJumping5() {
+        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        onView(withId(R.id.add_btn)).perform(click());
+        solo.assertCurrentActivity("Wrong Activity",AddCodeActivity.class);
+        solo.clickOnButton("Back");
+        solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
+    }
+
 
 
 }
