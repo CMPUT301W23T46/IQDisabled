@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,10 @@ public class QRDetailActivity extends AppCompatActivity {
     TextView qrScore;
     TextView qrComment;
 
+    EditText editComment;
+
+    Button submitBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class QRDetailActivity extends AppCompatActivity {
         qrRep = findViewById(R.id.qrcode_detail_rep);
         qrScore = findViewById(R.id.qrcode_detail_score);
         qrComment = findViewById(R.id.qrcode_detail_comment);
+        editComment = findViewById(R.id.add_comment);
+        submitBtn = findViewById(R.id.submit_btn);
 
 
         qrName.setText(qr_name);
@@ -103,9 +110,47 @@ public class QRDetailActivity extends AppCompatActivity {
                     public void failure(Exception e) {
                     }
                 });
-
-
             }
         });
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comment = editComment.getText().toString();
+                if (comment.length() != 0) {
+                    DataBaseHelper dbHelper = new DataBaseHelper();
+                    dbHelper.add_comment(qr_name, comment, new OnAddCommentListener() {
+                        @Override
+                        public void success() {
+                            Toast.makeText(QRDetailActivity.this, "Comment added", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void failure(Exception e) {
+                            Toast.makeText(QRDetailActivity.this, "Comment failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(QRDetailActivity.this, "Please enter comment", Toast.LENGTH_SHORT).show();
+                }
+
+                dbhelper.getQRCommentByName(qr_name, new OnGetQRCommentListener() {
+                    @Override
+                    public void success(List<String> qrComs) {
+                        if (qrComs.size() != 0) {
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (String s : qrComs) {
+                                stringBuilder.append(s).append("\n");
+                            }
+                            String combinedString = stringBuilder.toString();
+                            qrComment.setText(combinedString);
+                        }
+                    }
+                    @Override
+                    public void failure(Exception e) {
+                    }
+                });
+        }
+    });
     }
 }
