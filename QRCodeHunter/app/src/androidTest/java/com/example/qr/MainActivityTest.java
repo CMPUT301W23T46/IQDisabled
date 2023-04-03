@@ -113,7 +113,8 @@ public class MainActivityTest {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
         onView(withId(R.id.add_btn)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",AddCodeActivity.class);
-        solo.clickOnButton("btn_scan");
+//        solo.clickOnButton("btn_scan");
+        onView(withId(R.id.btn_scan)).perform(click());
         solo.assertCurrentActivity("Wrong Activity",ShowQRCodeActivity.class);
     }
 
