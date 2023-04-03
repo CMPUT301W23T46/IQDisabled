@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -84,12 +85,19 @@ public class QRDetailActivity extends AppCompatActivity {
                 dbHelper.getGeoByName(qr_name, new OnGetGeoListener() {
                     @Override
                     public void success(List<String> geoPoint) {
-                        Intent intent = new Intent(QRDetailActivity.this, MapActivity.class);
-                        intent.putExtra("qrName", qr_name);
-                        intent.putExtra("qrLat", geoPoint.get(0));
-                        intent.putExtra("qrLng", geoPoint.get(1));
-                        System.out.println(geoPoint.get(0)+"/"+geoPoint.get(1));
-                        startActivity(intent);
+                        Intent intent = new Intent(QRDetailActivity.this, ViewOnMapActivity.class);
+                        Double la = Double.parseDouble(geoPoint.get(0));
+                        Double lo = Double.parseDouble(geoPoint.get(1));
+                        if (la >= -90 && la <= 90 && lo >= -180 && lo <= 180) {
+                            intent.putExtra("qrName", qr_name);
+                            intent.putExtra("qrLa", geoPoint.get(0));
+                            intent.putExtra("qrLo", geoPoint.get(1));
+                            System.out.println(geoPoint.get(0)+"/"+geoPoint.get(1));
+                            startActivity(intent);
+                        } else{
+                            Toast.makeText(QRDetailActivity.this, "No location data", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                     @Override
                     public void failure(Exception e) {
