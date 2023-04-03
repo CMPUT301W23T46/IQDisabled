@@ -87,6 +87,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             // Use the retrieved geolocation data
                             double latitude = geo.get("latitude");
                             double longitude = geo.get("longitude");
+                            System.out.println(latitude +"/"+longitude);
 //                            LatLng location = new LatLng(latitude, longitude);
 //                            Toast.makeText(MapActivity.this, String.valueOf(longitude), Toast.LENGTH_SHORT).show();
                             MarkerOptions markerOptions = new MarkerOptions()
