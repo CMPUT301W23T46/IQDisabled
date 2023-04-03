@@ -11,6 +11,8 @@
                   <entry key="1570791351001A8" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="Galaxy_Nexus_API_31" value="120" />
+                  <entry key="HUAWEI&#10; ELS-AN00" value="120" />
+                  <entry key="MDX0220409016212" value="120" />
                   <entry key="Pixel_3_XL_API_30" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="vivo&#10; V2118A" value="120" />
@@ -33,6 +35,20 @@
                   <entry key="Pixel_6_API_33_Emulator" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="vivo&#10; V2118A" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-270372218">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; ELS-AN00" value="120" />
+                  <entry key="MDX0220409016212" value="120" />
+                  <entry key="Tests" value="360" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -73,6 +89,20 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_6_API_33_Emulator" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1329820526">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; ELS-AN00" value="120" />
+                  <entry key="MDX0220409016212" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
