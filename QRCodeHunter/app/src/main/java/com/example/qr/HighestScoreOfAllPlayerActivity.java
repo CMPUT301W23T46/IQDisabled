@@ -55,8 +55,30 @@ public class HighestScoreOfAllPlayerActivity extends AppCompatActivity {
                             if (scoresList.size() == hashcodes.length) {
                                 int[] scoresArray = scoresList.stream().mapToInt(Integer::intValue).toArray();
                                 Arrays.sort(scoresArray);
-                                TextView game_wide = findViewById(R.id.game_wide);
-                                game_wide.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                                TextView no1Score = findViewById(R.id.no1_score);
+                                TextView no2Score = findViewById(R.id.no2_score);
+                                TextView no3Score = findViewById(R.id.no3_score);
+                                if (hashcode.length() >= 3) {
+                                    no1Score.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                                    no2Score.setText(String.valueOf(scoresArray[hashcodes.length-2]));
+                                    no3Score.setText(String.valueOf(scoresArray[hashcodes.length-3]));
+                                }
+                                else if (hashcode.length() == 2) {
+                                    no1Score.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                                    no2Score.setText(String.valueOf(scoresArray[hashcodes.length-2]));
+                                    no3Score.setText("N/A");
+                                }
+                                else if (hashcode.length() == 1) {
+                                    no1Score.setText(String.valueOf(scoresArray[hashcodes.length-1]));
+                                    no2Score.setText("N/A");
+                                    no3Score.setText("N/A");
+                                }
+                                else {
+                                    no1Score.setText("N/A");
+                                    no2Score.setText("N/A");
+                                    no3Score.setText("N/A");
+                                }
+
                             }
                         }
                     });
