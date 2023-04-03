@@ -79,7 +79,7 @@ private Solo solo;
     public void testRanking(){
         solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
         onView(withId(R.id.imageButton14)).perform(click());
-        solo.assertCurrentActivity("Wrong Activity", MyRankingActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", HighestScoreOfAllPlayerActivity.class);
     }
 
 
