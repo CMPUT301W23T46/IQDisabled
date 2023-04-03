@@ -14,7 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
-
+/**
+ *Represents an activity that displays details of a QR code.
+ *The activity displays the name of the QR code, its reputation, score, and comments.
+ *It also allows users to add comments and view the QR code location on a map.
+ */
 public class QRDetailActivity extends AppCompatActivity {
     ImageButton backBtn;
     Button mapBtn;
@@ -27,7 +31,12 @@ public class QRDetailActivity extends AppCompatActivity {
 
     Button submitBtn;
 
-
+    /**
+     * Called when the activity is starting. Retrieves the details of the QR code from the database and
+     * displays them on the screen.
+     *
+     * @param savedInstanceState the saved instance state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
@@ -90,6 +99,12 @@ public class QRDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DataBaseHelper dbHelper = new DataBaseHelper();
                 dbHelper.getGeoByName(qr_name, new OnGetGeoListener() {
+                    /**
+                     *Called when the "View on Map" button is clicked. Retrieves the location data for the QR code from the
+                     *database and launches the ViewOnMapActivity to display the QR code's location on a map.
+                     *
+                     *@param geoPoint the list of latitude and longitude coordinates for the QR code's location
+                     */
                     @Override
                     public void success(List<String> geoPoint) {
                         Intent intent = new Intent(QRDetailActivity.this, ViewOnMapActivity.class);
@@ -135,6 +150,12 @@ public class QRDetailActivity extends AppCompatActivity {
                 }
 
                 dbhelper.getQRCommentByName(qr_name, new OnGetQRCommentListener() {
+                    /**
+                     *Called when the comments for the QR code are successfully retrieved from the database. Formats the comments
+                     *as a single string and displays them on the screen.
+                     *
+                     *@param qrComs the list of comments for the QR code
+                     */
                     @Override
                     public void success(List<String> qrComs) {
                         if (qrComs.size() != 0) {

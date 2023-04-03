@@ -5,9 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * The QRCodeStatsTest class is a JUnit test class for testing the QRCodeStats class. It contains several test methods that test various functionalities of the QRCodeStats class.
+ */
 public class QRCodeStatsTest {
-
+    /**
+     * Test method for checking the hashString() method in the QRCodeStats class.
+     * @throws NoSuchAlgorithmException if the hash algorithm is not available.
+     */
     @Test
     public void hashString() throws NoSuchAlgorithmException {
         String input = "9661932184";
@@ -15,7 +20,9 @@ public class QRCodeStatsTest {
         QRCodeStats s = new QRCodeStats(input);
         assertEquals(QRCodeStats.hashString(),expected);
     }
-
+    /**
+     * Test method for checking the extractFirstSix() method in the QRCodeStats class.
+     */
     @Test
     public void extractFirstSix() {
         String input = "9661932184";
@@ -23,7 +30,9 @@ public class QRCodeStatsTest {
         String expected = "100101";
         assertEquals(ouput,expected);
     }
-
+    /**
+     * Test method for checking the naming() method in the QRCodeStats class.
+     */
     @Test
     public void naming() {
         String input = "9661932184";
@@ -31,7 +40,9 @@ public class QRCodeStatsTest {
         String expected = "hot GloLoUltraSonicShark";
         assertEquals(ouput,expected);
     }
-
+    /**
+     * Test method for checking the scoring() method in the QRCodeStats class.
+     */
     @Test
     public void scoring() {
         String input = "9661932184";
@@ -39,7 +50,9 @@ public class QRCodeStatsTest {
         int expected = 6;
         assertEquals(ouput,expected);
     }
-
+    /**
+     * Test method for checking the visualRep() method in the QRCodeStats class.
+     */
     @Test
     public void visualRep() {
         String input = "9661932184";

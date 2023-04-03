@@ -17,6 +17,10 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+    /**
+     * This test method verifies that the app context is retrieved successfully
+     * and the package name matches the expected value.
+     */
     @Test
     public void useAppContext() {
         // Context of the app under test.

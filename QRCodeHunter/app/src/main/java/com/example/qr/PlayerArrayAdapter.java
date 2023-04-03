@@ -10,17 +10,32 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/**
+ * This class extends the ArrayAdapter class and represents an adapter for the player list view.
+ * It provides a customized view for each player item in the list.
+ */
 public class PlayerArrayAdapter extends ArrayAdapter<Player> {
     private final Context context;
     private final Player[] playerList;
-
+    /**
+     * Constructs a new instance of the PlayerArrayAdapter.
+     *
+     * @param context the context of the adapter
+     * @param players an array of Player objects to be displayed in the adapter
+     */
     public PlayerArrayAdapter(Context context, Player[] players) {
         super(context, R.layout.contact_list_content, players);
         this.context = context;
         this.playerList = players;
     }
-
+    /**
+     * Overrides the getView method of the ArrayAdapter class to provide a customized view for each player item in the list.
+     *
+     * @param position the position of the item in the list
+     * @param convertView the recycled view to populate
+     * @param parent the parent view group of the item
+     * @return the view for the specified position in the list
+     */
     @Override
     public View getView(int p, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

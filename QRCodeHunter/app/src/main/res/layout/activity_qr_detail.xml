@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="Comment: "
             android:layout_below = "@id/qrcode_detail_score_txt"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:layout_marginStart="50dp"
 
             android:layout_marginTop="20dp"
@@ -111,7 +111,7 @@
             android:text="No Comment availablessssssssss aaaa aaa"
 
             android:layout_toEndOf="@id/qrcode_detail_comment_txt"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:layout_alignTop="@id/qrcode_detail_comment_txt">
 
         </TextView>
@@ -122,7 +122,7 @@
             android:id="@+id/add_comment"
             android:hint="Add Comments"
             android:layout_above="@id/view_on_map_btn"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true">
 
         </EditText>
