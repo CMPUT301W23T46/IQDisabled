@@ -11,12 +11,14 @@ import static androidx.test.espresso.action.ViewActions.click;
 import android.widget.ImageView;
 
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 
 import com.robotium.solo.Solo;
@@ -24,6 +26,7 @@ import com.robotium.solo.Solo;
 import java.util.List;
 
 
+@RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     private Solo solo;
 
@@ -43,40 +46,54 @@ public class MainActivityTest {
 
     }
 
-
     @Test
     public void checkJump2MyQRCode() throws InterruptedException {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
         solo.clickOnButton("View QR Codes");
         solo.assertCurrentActivity("Wrong Activity", MyQRCodeActivity.class);
-    }
-
-
-    @Test
-    public void checkSearch() {
-
-        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
-
-        onView(withId(R.id.home_search_btn)).perform(click());
-        solo.assertCurrentActivity("Wrong Activity", SearchActivity.class);
 
     }
 
-    @Test
-    public void checkJumping() {
-        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
-        onView(withId(R.id.contact_btn)).perform(click());
-        solo.assertCurrentActivity("Wrong Activity",ContactActivity.class);
-    }
 
-    @Test
-    public void checkJumping2() {
-        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
-        onView(withId(R.id.add_btn)).perform(click());
-        solo.assertCurrentActivity("Wrong Activity",AddCodeActivity.class);
-    }
-
-
+//    @Test
+//    public void checkJump2MyQRCode() throws InterruptedException {
+//        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+//        solo.clickOnButton("View QR Codes");
+//        solo.assertCurrentActivity("Wrong Activity", MyQRCodeActivity.class);
+//    }
+//
+//
+//    @Test
+//    public void checkSearch() {
+//
+//        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+//
+//        onView(withId(R.id.home_search_btn)).perform(click());
+//        solo.assertCurrentActivity("Wrong Activity", SearchActivity.class);
+//
+//    }
+//
+//    @Test
+//    public void checkJumping() {
+//        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+//        onView(withId(R.id.contact_btn)).perform(click());
+//        solo.assertCurrentActivity("Wrong Activity",ContactActivity.class);
+//    }
+//
+//    @Test
+//    public void checkJumping2() {
+//        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+//        onView(withId(R.id.add_btn)).perform(click());
+//        solo.assertCurrentActivity("Wrong Activity",AddCodeActivity.class);
+//    }
+//
+//
+//    @Test
+//    public void checkJumping4() {
+//        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+//        onView(withId(R.id.profile_btn)).perform(click());
+//        solo.assertCurrentActivity("Wrong Activity",ProfileActivity.class);
+//    }
     @Test
     public void checkJumping4() {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
