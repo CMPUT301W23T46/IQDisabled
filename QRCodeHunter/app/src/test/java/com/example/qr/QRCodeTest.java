@@ -4,12 +4,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
+/**
+ * The QRCodeTest class is a JUnit test class for testing the QRCode class. It contains several test methods that test various functionalities of the QRCode class.
+ */
 public class QRCodeTest {
     QRCode code;
     QRCode code1;
     String[] comments= {"waterBottle1","waterBottle2","waterBottle3","waterBottle4"};
-
+    /**
+     * Sets up mock QRCode objects for testing purposes. This method is executed before each test method is run.
+     */
     @Before
     public void setUpMockCode(){
         try {
@@ -20,7 +24,9 @@ public class QRCodeTest {
         code1 = new QRCode("fb1a3dcbbf707c9b809ba897e815ec090069ea7424d0e01a8113f4b516ef4540");
 
     }
-
+    /**
+     * Test method for checking the functionality of the getHashCode() method in the QRCode class.
+     */
     @Test
     public void testGetHashCode(){
         String expected = "fb1a3dcbbf707c9b809ba897e815ec090069ea7424d0e01a8113f4b516ef4540";
@@ -30,7 +36,9 @@ public class QRCodeTest {
         assertEquals(expected,output);
         assertEquals(expected,output1);
     }
-
+    /**
+     * Test method for checking the functionality of the getScore() method in the QRCode class.
+     */
     @Test
     public void testGetScore(){
         int expected = 12;
@@ -39,6 +47,9 @@ public class QRCodeTest {
         assertEquals(expected,output);
         assertEquals(expected,output1);
     }
+    /**
+     * Test method for checking the functionality of the getQrcodeName() method in the QRCode class.
+     */
     @Test
     public void testGetQrcodeName(){
         String expected = "hot GloLoUltraSonicCrab";
@@ -47,7 +58,9 @@ public class QRCodeTest {
         assertEquals(expected,output);
         assertEquals(expected,output1);
     }
-
+    /**
+     * Test method for checking the functionality of the getVisual_rep() method in the QRCode class.
+     */
     @Test
     public void testGetVisual_rep(){
         String expected = "  ______  \n" +
@@ -63,7 +76,9 @@ public class QRCodeTest {
         assertEquals(expected,output);
         assertEquals(expected,output1);
     }
-
+    /**
+     * Test method for checking the functionality of the getComments() method in the QRCode class.
+     */
     @Test
     public void testGetComments(){
         String[] expected = comments;
@@ -72,7 +87,9 @@ public class QRCodeTest {
         assertEquals(expected,output);
 
     }
-
+    /**
+     * Test method for checking the functionality of the getContent() method in the QRCode class.
+     */
     @Test
     public void testGetContent() {
         String expected = "069000061008";
@@ -80,7 +97,4 @@ public class QRCodeTest {
 
         assertEquals(expected, output);
     }
-
-
-
 }
