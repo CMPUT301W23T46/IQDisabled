@@ -54,15 +54,56 @@ public class MyQRCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcodes);
-
-
-
+        ImageButton backButton = findViewById(R.id.imageButton13);
         ListView listView = findViewById(R.id.qrcodes);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         listView.setAdapter(adapter);
 
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyQRCodeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
+//        statisticsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MyQRCodeActivity.this, StatisticsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+//        RankingButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MyQRCodeActivity.this, MyRankingActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        String username = sharedPref.getString("username","N/A");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        List<String> documentNames = new ArrayList<>();
+        CollectionReference myqrcode = db.collection("Players").document(username).collection("QRCode");
+
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        ListView mycodes = findViewById(R.id.qrcodes);
+
+        dbhelper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) throws InterruptedException {
+                ArrayList<QRCode> qrCodes = new ArrayList<>();
+                for (String hash: hashcodes) {
+                    QRCode qr = new QRCode(hash);
+                    qrCodes.add(qr);
+                }
+                QRCodeArrayAdapter adapter = new QRCodeArrayAdapter(MyQRCodeActivity.this,qrCodes);
+                mycodes.setAdapter(adapter);
+            }
+        });
 
 
 
