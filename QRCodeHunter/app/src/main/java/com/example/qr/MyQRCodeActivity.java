@@ -91,52 +91,72 @@ public class MyQRCodeActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<String> documentNames = new ArrayList<>();
         CollectionReference myqrcode = db.collection("Players").document(username).collection("QRCode");
-        myqrcode.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String documentName = document.getId();
-                        documentNames.add(documentName);
-                    }
 
-                    db.collection("QRCode")
-                            .get()
-                            .addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    QuerySnapshot querySnapshot = task1.getResult();
-                                    if (querySnapshot != null) {
-                                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                                            String docName = document.getId();
-                                            if (documentNames.contains(docName)) {
-                                                String fieldValue = document.getString("qrcodeName");
-                                                if (fieldValue != null) {
-                                                    data.add(fieldValue);
-                                                }
-                                            }
-                                        }
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }
-                            });
-                            }
-                        }
-                    });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String select = documentNames.get(position);
-                data.remove(position);
-                RemoveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view){
-                        adapter.notifyDataSetChanged();
-                        db.collection("Players").document(username).collection("QRCode").document(select)
-                                .delete();
+        DataBaseHelper dbhelper = new DataBaseHelper();
+        ListView mycodes = findViewById(R.id.qrcodes);
 
-                    }
-                });
+        dbhelper.getQRCodeByName_hash(username, new OnGetHashByUsernameListener() {
+            @Override
+            public void onSuccess(String[] hashcodes) throws InterruptedException {
+                ArrayList<QRCode> qrCodes = new ArrayList<>();
+                for (String hash: hashcodes) {
+                    QRCode qr = new QRCode(hash);
+                    qrCodes.add(qr);
                 }
+                QRCodeArrayAdapter adapter = new QRCodeArrayAdapter(MyQRCodeActivity.this,qrCodes);
+                mycodes.setAdapter(adapter);
+            }
         });
+
+
+
+
+//        myqrcode.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String documentName = document.getId();
+//                        documentNames.add(documentName);
+//                    }
+//
+//                    db.collection("QRCode")
+//                            .get()
+//                            .addOnCompleteListener(task1 -> {
+//                                if (task1.isSuccessful()) {
+//                                    QuerySnapshot querySnapshot = task1.getResult();
+//                                    if (querySnapshot != null) {
+//                                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+//                                            String docName = document.getId();
+//                                            if (documentNames.contains(docName)) {
+//                                                String fieldValue = document.getString("qrcodeName");
+//                                                if (fieldValue != null) {
+//                                                    data.add(fieldValue);
+//                                                }
+//                                            }
+//                                        }
+//                                        adapter.notifyDataSetChanged();
+//                                    }
+//                                }
+//                            });
+//                            }
+//                        }
+//                    });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String select = documentNames.get(position);
+//                data.remove(position);
+//                RemoveButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view){
+//                        adapter.notifyDataSetChanged();
+//                        db.collection("Players").document(username).collection("QRCode").document(select)
+//                                .delete();
+//
+//                    }
+//                });
+//                }
+//        });
     }
 }

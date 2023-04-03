@@ -230,45 +230,10 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View v) {
                 if (geo_location.isChecked()) {
-                    if (mGoogleApiClient.isConnected()) {
-                        // Request location updates
-                        if (ActivityCompat.checkSelfPermission(ShowQRCodeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                                ActivityCompat.checkSelfPermission(ShowQRCodeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(ShowQRCodeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                        } else {
-                            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, ShowQRCodeActivity.this);
-                        }
-//                        Toast.makeText(ShowQRCodeActivity.this, "Latitude: " + ShowQRCodeActivity.this.latitude + ", Longitude: " + ShowQRCodeActivity.this.longitude, Toast.LENGTH_SHORT).show();
-                        db = FirebaseFirestore.getInstance();
-                        CollectionReference collectRef = db.collection("QRCode");
-                        HashMap<String, Object> value = new HashMap<>();
+                    mGoogleApiClient.connect();
+                    submit_btn.setText("Please Wait");
+                    // Request location updates
 
-                        QRCode qr = new QRCode(hashContent);
-                        value.put("latitude",String.valueOf(ShowQRCodeActivity.this.latitude));
-                        value.put("longitude",String.valueOf(ShowQRCodeActivity.this.longitude));
-                        value.put("qrcodeName",qr.getQrcodeName());
-                        value.put("score",String.valueOf(qr.getScore()));
-                        value.put("visual_rep",qr.getVisual_rep());
-                        String temp = ShowQRCodeActivity.this.image;
-                        value.put("image",temp);
-                        collectRef.document(hashContent).set(value).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Log.d(TAG,"Success");
-                                DataBaseHelper dbhelper = new DataBaseHelper();
-                                dbhelper.qrcode_add_comment(qr,edt_comment.getText().toString());
-                                Intent intent1 = new Intent(ShowQRCodeActivity.this,HomeActivity.class);
-                                startActivity(intent1);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG,"Failed");
-                            }
-                        });
-                    } else {
-                        mGoogleApiClient.connect();
-                    }
                 }
                 else {
                     EditText edx = findViewById(R.id.edit_comment);
@@ -377,6 +342,45 @@ public class ShowQRCodeActivity extends AppCompatActivity implements GoogleApiCl
             // Request location updates
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
+
+        if (ActivityCompat.checkSelfPermission(ShowQRCodeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(ShowQRCodeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ShowQRCodeActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        } else {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, ShowQRCodeActivity.this);
+        }
+//                        Toast.makeText(ShowQRCodeActivity.this, "Latitude: " + ShowQRCodeActivity.this.latitude + ", Longitude: " + ShowQRCodeActivity.this.longitude, Toast.LENGTH_SHORT).show();
+        db = FirebaseFirestore.getInstance();
+        CollectionReference collectRef = db.collection("QRCode");
+        HashMap<String, Object> value = new HashMap<>();
+
+        QRCode qr = new QRCode(hashCode);
+        value.put("latitude",String.valueOf(ShowQRCodeActivity.this.latitude));
+        value.put("longitude",String.valueOf(ShowQRCodeActivity.this.longitude));
+        value.put("qrcodeName",qr.getQrcodeName());
+        value.put("score",String.valueOf(qr.getScore()));
+        value.put("visual_rep",qr.getVisual_rep());
+        String temp = this.image;
+        value.put("image",temp);
+        collectRef.document(hashCode).set(value).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG,"Success");
+                Button submit_btn = findViewById(R.id.submit_btn);
+                submit_btn.setText("Success!");
+                DataBaseHelper dbhelper = new DataBaseHelper();
+                EditText edt_comment = findViewById(R.id.edit_comment);
+                dbhelper.qrcode_add_comment(qr,edt_comment.getText().toString());
+                Intent intent1 = new Intent(ShowQRCodeActivity.this,HomeActivity.class);
+                startActivity(intent1);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"Failed");
+                Toast.makeText(ShowQRCodeActivity.this, "Unable to upload. Please check your internet connection.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     /**
 
