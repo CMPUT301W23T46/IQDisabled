@@ -46,6 +46,14 @@ public class MainActivityTest {
 
     }
 
+    @Test
+    public void checkJump2MyQRCode() throws InterruptedException {
+        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        solo.clickOnButton("View QR Codes");
+        solo.assertCurrentActivity("Wrong Activity", MyQRCodeActivity.class);
+
+    }
+
 
 //    @Test
 //    public void checkJump2MyQRCode() throws InterruptedException {

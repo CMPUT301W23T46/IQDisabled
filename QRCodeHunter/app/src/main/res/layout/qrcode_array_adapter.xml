@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="5dp"
+    android:background="#8AF1E8FF"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/qr_name_tw"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="QRName"
+        android:textSize="20sp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <Button
+        android:id="@+id/delete_qr_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:includeFontPadding="false"
+        android:text="delete"
+        android:textSize="15sp">
+
+    </Button>
+
+
+
+
+</RelativeLayout>
